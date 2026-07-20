@@ -1,0 +1,272 @@
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar" [class.scrolled]="isNavScrolled">
+  <div class="nav-container">
+    <a routerLink="/" class="nav-logo">
+      <span class="logo-icon">🚗</span>
+      <span class="logo-text">Wheel<span class="logo-highlight">Share</span></span>
+    </a>
+
+    <ul class="nav-links" [class.active]="isMobileMenuOpen">
+      <li><a routerLink="/" class="nav-link active" (click)="closeMobileMenu()">Home</a></li>
+      <li><a routerLink="/vehicles" class="nav-link" (click)="closeMobileMenu()">Cars</a></li>
+      <li><a href="#how-it-works" class="nav-link" (click)="closeMobileMenu()">How It Works</a></li>
+      <li><a href="#about" class="nav-link" (click)="closeMobileMenu()">About</a></li>
+      <li class="nav-auth-mobile">
+        <a routerLink="/auth/login" class="btn btn-ghost" (click)="closeMobileMenu()">Log In</a>
+        <a routerLink="/auth/register" class="btn btn-primary btn-sm" (click)="closeMobileMenu()">Sign Up</a>
+      </li>
+    </ul>
+
+    <div class="nav-actions">
+      <a routerLink="/auth/login" class="btn btn-ghost">Log In</a>
+      <a routerLink="/auth/register" class="btn btn-primary btn-sm">Sign Up</a>
+    </div>
+
+    <button class="hamburger" [class.open]="isMobileMenuOpen" (click)="toggleMobileMenu()" aria-label="Toggle navigation menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- ========== HERO SECTION ========== -->
+<section class="hero">
+  <div class="hero-video-wrapper">
+    <video
+      #heroVideo
+      autoplay
+      muted
+      loop
+      playsinline
+      class="hero-video"
+      poster="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80">
+      <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-tag">Rent · Share · Explore</p>
+    <h1 class="hero-title">Drive Your Dream<br>Car Today</h1>
+    <p class="hero-subtitle">
+      Access hundreds of verified cars from trusted owners — book in minutes, drive in style.
+    </p>
+    <div class="hero-cta">
+      <a routerLink="/vehicles" class="btn btn-primary btn-lg">Browse Cars</a>
+      <a href="#how-it-works" class="btn btn-outline-light btn-lg">How It Works</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">50+</span>
+        <span class="stat-label">Cars Available</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">120+</span>
+        <span class="stat-label">Happy Riders</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">15+</span>
+        <span class="stat-label">Cities Covered</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-indicator">
+    <span class="scroll-text">Scroll Down</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ========== FEATURED VEHICLES ========== -->
+<section class="section featured-section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-badge">Top Picks</span>
+      <h2 class="section-title">Featured Vehicles</h2>
+      <p class="section-subtitle">Handpicked rides that our community loves the most</p>
+    </div>
+
+    <div class="car-grid">
+      <div class="car-card fade-up" *ngFor="let car of featuredCars; let i = index" [style.transition-delay]="(i * 0.12) + 's'">
+        <div class="car-image-wrapper">
+          <img [src]="car.image" [alt]="car.name" loading="lazy">
+          <span class="car-badge">{{ car.type }}</span>
+        </div>
+        <div class="car-details">
+          <div class="car-header">
+            <h3 class="car-name">{{ car.name }}</h3>
+            <div class="car-rating">
+              <span class="star">★</span>
+              <span>{{ car.rating }}</span>
+            </div>
+          </div>
+          <div class="car-location">
+            <span class="location-pin">📍</span>
+            <span>{{ car.location }}</span>
+          </div>
+          <div class="car-specs">
+            <span class="spec"><span class="spec-icon">⛽</span> {{ car.fuel }}</span>
+            <span class="spec"><span class="spec-icon">⚙️</span> {{ car.transmission }}</span>
+            <span class="spec"><span class="spec-icon">👤</span> {{ car.seats }} seats</span>
+          </div>
+          <div class="car-footer">
+            <div class="car-price">
+              <span class="price-amount">{{ car.price }}</span>
+              <span class="price-period">{{ car.period }}</span>
+            </div>
+            <a routerLink="/vehicles" class="btn btn-primary btn-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-action fade-up">
+      <a routerLink="/vehicles" class="btn btn-outline btn-lg">View All Cars →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== WHY CHOOSE US ========== -->
+<section class="section why-section" id="about">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-badge">Why Us</span>
+      <h2 class="section-title">Why Choose WheelShare?</h2>
+      <p class="section-subtitle">We make car rental simple, safe, and affordable for everyone</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card fade-up" style="transition-delay: 0s;">
+        <div class="feature-icon-wrap">
+          <span class="feature-icon">📱</span>
+        </div>
+        <h3 class="feature-title">Easy Booking</h3>
+        <p class="feature-text">Reserve a car in just a few taps. No long forms, no waiting around — instant confirmation.</p>
+      </div>
+
+      <div class="feature-card fade-up" style="transition-delay: 0.1s;">
+        <div class="feature-icon-wrap">
+          <span class="feature-icon">✅</span>
+        </div>
+        <h3 class="feature-title">Verified Owners</h3>
+        <p class="feature-text">Every car and owner goes through a thorough verification process for your safety.</p>
+      </div>
+
+      <div class="feature-card fade-up" style="transition-delay: 0.2s;">
+        <div class="feature-icon-wrap">
+          <span class="feature-icon">💰</span>
+        </div>
+        <h3 class="feature-title">Affordable Pricing</h3>
+        <p class="feature-text">Competitive daily rates with no hidden charges. Pay only for what you need.</p>
+      </div>
+
+      <div class="feature-card fade-up" style="transition-delay: 0.3s;">
+        <div class="feature-icon-wrap">
+          <span class="feature-icon">🛡️</span>
+        </div>
+        <h3 class="feature-title">Fully Insured</h3>
+        <p class="feature-text">Every trip includes insurance coverage so you can drive with complete peace of mind.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== HOW IT WORKS ========== -->
+<section class="section steps-section" id="how-it-works">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-badge">Simple Process</span>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Get on the road in four straightforward steps</p>
+    </div>
+
+    <div class="steps-timeline">
+      <div class="timeline-line"></div>
+      <div class="step-item fade-up" *ngFor="let step of steps; let i = index" [style.transition-delay]="(i * 0.15) + 's'">
+        <div class="step-number-wrap">
+          <span class="step-number">{{ step.number }}</span>
+        </div>
+        <div class="step-content">
+          <h3 class="step-title">{{ step.title }}</h3>
+          <p class="step-desc">{{ step.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-action fade-up">
+      <a routerLink="/auth/register" class="btn btn-primary btn-lg">Get Started Free</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== CTA BANNER ========== -->
+<section class="cta-banner">
+  <div class="container">
+    <div class="cta-content fade-up">
+      <h2 class="cta-title">Ready to Hit the Road?</h2>
+      <p class="cta-text">Join thousands of happy riders who trust WheelShare for their everyday commute and weekend getaways.</p>
+      <div class="cta-actions">
+        <a routerLink="/auth/register" class="btn btn-white btn-lg">Create Free Account</a>
+        <a routerLink="/vehicles" class="btn btn-outline-white btn-lg">Explore Cars</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a routerLink="/" class="nav-logo footer-logo">
+          <span class="logo-icon">🚗</span>
+          <span class="logo-text">Wheel<span class="logo-highlight">Share</span></span>
+        </a>
+        <p class="footer-tagline">Making car rental accessible, affordable, and enjoyable for everyone.</p>
+      </div>
+
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/vehicles">Browse Cars</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#about">About Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">Help Centre</a></li>
+          <li><a href="#">Safety</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Get in Touch</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:hello&#64;wheelshare.in">hello&#64;wheelshare.in</a></li>
+          <li><a href="tel:+911234567890">+91 12345 67890</a></li>
+          <li><span>Hyderabad, India</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {{ currentYear }} WheelShare. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
