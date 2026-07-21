@@ -1,0 +1,64 @@
+<section class="bookings-page">
+    <div class="page-container">
+        <h1 class="page-title">My Bookings</h1>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab" [class.active]="activeTab === 'upcoming'" (click)="activeTab = 'upcoming'">
+                Upcoming ({{ upcomingBookings.length }})
+            </button>
+            <button class="tab" [class.active]="activeTab === 'completed'" (click)="activeTab = 'completed'">
+                Completed ({{ completedBookings.length }})
+            </button>
+            <button class="tab" [class.active]="activeTab === 'cancelled'" (click)="activeTab = 'cancelled'">
+                Cancelled ({{ cancelledBookings.length }})
+            </button>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading-container" *ngIf="isLoading">
+            <div class="spinner"></div>
+            <p>Loading bookings...</p>
+        </div>
+
+        <!-- Booking Cards -->
+        <div class="bookings-list" *ngIf="!isLoading && filteredBookings.length > 0">
+            <div class="booking-card" *ngFor="let booking of filteredBookings">
+                <div class="booking-image">
+                    <img [src]="getVehicleImage(booking)" [alt]="getVehicleName(booking)">
+                </div>
+                <div class="booking-info">
+                    <div class="booking-header">
+                        <h3>{{ getVehicleName(booking) }}</h3>
+                        <span class="status-badge" [ngClass]="getStatusClass(booking.status)">{{ booking.status }}</span>
+                    </div>
+                    <div class="booking-details">
+                        <div class="detail-row">
+                            <span class="detail-label">📅 Pickup</span>
+                            <span>{{ booking.startDate | date:'mediumDate' }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">📅 Return</span>
+                            <span>{{ booking.endDate | date:'mediumDate' }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">💰 Total</span>
+                            <span class="detail-price">₹{{ booking.totalPrice | number }}</span>
+                        </div>
+                    </div>
+                    <div class="booking-actions" *ngIf="booking.status === 'Pending'">
+                        <button class="btn-cancel" (click)="cancelBooking(booking._id)">Cancel Booking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="!isLoading && filteredBookings.length === 0">
+            <span class="empty-icon">📋</span>
+            <h3>No {{ activeTab }} bookings</h3>
+            <p *ngIf="activeTab === 'upcoming'">You haven't booked any vehicles yet.</p>
+            <a routerLink="/vehicles" class="btn-primary" *ngIf="activeTab === 'upcoming'">Browse Cars</a>
+        </div>
+    </div>
+</section>

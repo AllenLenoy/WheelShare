@@ -1,0 +1,23 @@
+<section class="page"><div class="page-container" *ngIf="!isLoading">
+    <a routerLink="/owner/vehicles" class="back-link">← Back to My Vehicles</a>
+    <h1>Edit Vehicle</h1>
+    <div class="form-card">
+        <div class="form-grid">
+            <div class="form-group"><label>Vehicle Name</label><input type="text" [(ngModel)]="form.name"></div>
+            <div class="form-group"><label>Brand</label><input type="text" [(ngModel)]="form.brand"></div>
+            <div class="form-group"><label>Model</label><input type="text" [(ngModel)]="form.model"></div>
+            <div class="form-group"><label>Year</label><input type="number" [(ngModel)]="form.year"></div>
+            <div class="form-group"><label>Type</label><select [(ngModel)]="form.type"><option>Car</option><option>Bike</option><option>Scooter</option></select></div>
+            <div class="form-group"><label>Fuel Type</label><select [(ngModel)]="form.fuelType"><option>Petrol</option><option>Diesel</option><option>Electric</option><option>Hybrid</option></select></div>
+            <div class="form-group"><label>Transmission</label><select [(ngModel)]="form.transmission"><option>Automatic</option><option>Manual</option></select></div>
+            <div class="form-group"><label>Seats</label><input type="number" [(ngModel)]="form.seats" min="1"></div>
+            <div class="form-group"><label>Price Per Day (₹)</label><input type="number" [(ngModel)]="form.pricePerDay"></div>
+            <div class="form-group"><label>Location</label><input type="text" [(ngModel)]="form.location"></div>
+        </div>
+        <div class="form-group full"><label>Description</label><textarea [(ngModel)]="form.description" rows="3"></textarea></div>
+        <div class="form-group full"><label>Availability</label><select [(ngModel)]="form.available"><option [ngValue]="true">Available</option><option [ngValue]="false">Not Available</option></select></div>
+        <div class="form-group full"><label>Replace Image</label><input type="file" accept="image/*" (change)="onFileSelected($event)"></div>
+        <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
+        <button class="btn-submit" (click)="submit()" [disabled]="isSubmitting">{{ isSubmitting ? 'Saving...' : 'Save Changes' }}</button>
+    </div>
+</div></section>

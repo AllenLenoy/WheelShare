@@ -8,8 +8,14 @@ const addVehicle = async (req, res) => {
             return res.status(400).json({ message: "Please provide all required fields" });
         }
 
+        let imageUrl = '';
+        if (req.file) {
+            imageUrl = req.file.path;
+        }
+
         const vehicleData = {
             ...req.body,
+            image: imageUrl,
             owner: req.user._id // Get owner ID from JWT token
         };
         const vehicle = await Vehicle.create(vehicleData);
@@ -60,9 +66,14 @@ const updateVehicle = async (req, res) => {
             return res.status(403).json({ message: "User not authorized to update this vehicle" });
         }
 
+        let updateData = { ...req.body };
+        if (req.file) {
+            updateData.image = req.file.path;
+        }
+
         const updatedVehicle = await Vehicle.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            updateData,
             { new: true, runValidators: true }
         );
 

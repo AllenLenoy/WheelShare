@@ -1,1 +1,70 @@
-<p>dashboard works!</p>
+<section class="owner-dashboard">
+    <div class="page-container">
+        <h1 class="page-title">Welcome back, {{ userName }} 👋</h1>
+        <p class="page-subtitle">Here's an overview of your vehicle rental business</p>
+
+        <!-- Loading -->
+        <div class="loading-container" *ngIf="isLoading">
+            <div class="spinner"></div>
+            <p>Loading dashboard...</p>
+        </div>
+
+        <div *ngIf="!isLoading">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-icon">🚗</span>
+                    <div class="stat-info">
+                        <span class="stat-number">{{ totalVehicles }}</span>
+                        <span class="stat-label">My Vehicles</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">📋</span>
+                    <div class="stat-info">
+                        <span class="stat-number">{{ activeBookings }}</span>
+                        <span class="stat-label">Active Bookings</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">✅</span>
+                    <div class="stat-info">
+                        <span class="stat-number">{{ completedBookings }}</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                </div>
+                <div class="stat-card revenue">
+                    <span class="stat-icon">💰</span>
+                    <div class="stat-info">
+                        <span class="stat-number">₹{{ totalRevenue | number }}</span>
+                        <span class="stat-label">Total Revenue</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <a routerLink="/owner/add-vehicle" class="action-btn primary">+ Add New Vehicle</a>
+                <a routerLink="/owner/vehicles" class="action-btn">View My Vehicles</a>
+                <a routerLink="/owner/bookings" class="action-btn">Manage Bookings</a>
+            </div>
+
+            <!-- Pending Bookings -->
+            <div class="section" *ngIf="pendingBookings.length > 0">
+                <div class="section-header">
+                    <h2>Pending Booking Requests</h2>
+                    <a routerLink="/owner/bookings" class="view-all">View All →</a>
+                </div>
+                <div class="pending-list">
+                    <div class="pending-card" *ngFor="let booking of pendingBookings">
+                        <div class="pending-info">
+                            <span class="pending-badge">Pending</span>
+                            <span class="pending-date">{{ booking.createdAt | date:'mediumDate' }}</span>
+                        </div>
+                        <span class="pending-price">₹{{ booking.totalPrice | number }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

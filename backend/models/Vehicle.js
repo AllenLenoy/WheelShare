@@ -61,6 +61,21 @@ const vehicleSchema = new mongoose.Schema(
         default:""
     },
 
+    seats:{
+        type:Number,
+        default:5
+    },
+
+    description:{
+        type:String,
+        default:""
+    },
+
+    averageRating:{
+        type:Number,
+        default:0
+    },
+
     available:{
         type:Boolean,
         default:true

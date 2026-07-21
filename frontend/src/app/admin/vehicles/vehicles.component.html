@@ -1,0 +1,48 @@
+<section class="page">
+    <div class="page-container">
+        <div class="page-header">
+            <div>
+                <a routerLink="/admin/dashboard" class="back-link">← Back to Dashboard</a>
+                <h1>Manage Vehicles</h1>
+            </div>
+        </div>
+
+        <div class="loading-container" *ngIf="isLoading"><div class="spinner"></div></div>
+
+        <div class="table-container" *ngIf="!isLoading && vehicles.length > 0">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Vehicle</th>
+                        <th>Owner</th>
+                        <th>Type</th>
+                        <th>Price/Day</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let v of vehicles">
+                        <td><strong>{{ v.brand }} {{ v.model }}</strong><br><small>{{ v.location }}</small></td>
+                        <td>{{ getOwnerName(v) }}</td>
+                        <td>{{ v.type }}</td>
+                        <td>₹{{ v.pricePerDay }}</td>
+                        <td>
+                            <span class="status-badge" [class.available]="v.available">
+                                {{ v.available ? 'Available' : 'Booked' }}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn-delete" (click)="deleteVehicle(v._id)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="empty-state" *ngIf="!isLoading && vehicles.length === 0">
+            <span>🚗</span>
+            <h3>No vehicles on the platform</h3>
+        </div>
+    </div>
+</section>

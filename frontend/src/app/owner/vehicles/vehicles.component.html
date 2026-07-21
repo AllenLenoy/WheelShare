@@ -1,0 +1,23 @@
+<section class="page"><div class="page-container">
+    <div class="page-header"><h1>My Vehicles</h1><a routerLink="/owner/add-vehicle" class="btn-add">+ Add Vehicle</a></div>
+    <div class="loading-container" *ngIf="isLoading"><div class="spinner"></div></div>
+    <div class="vehicle-table" *ngIf="!isLoading && vehicles.length > 0">
+        <div class="table-card" *ngFor="let v of vehicles">
+            <img [src]="getImage(v)" class="table-img" [alt]="v.brand">
+            <div class="table-info">
+                <h3>{{ v.brand }} {{ v.model }}</h3>
+                <p>{{ v.type }} · {{ v.fuelType }} · {{ v.transmission }} · {{ v.location }}</p>
+                <span class="table-price">₹{{ v.pricePerDay | number }}/day</span>
+            </div>
+            <span class="availability-badge" [class.available]="v.available">{{ v.available ? 'Available' : 'Booked' }}</span>
+            <div class="table-actions">
+                <a [routerLink]="['/owner/edit-vehicle', v._id]" class="btn-edit">Edit</a>
+                <button class="btn-delete" (click)="deleteVehicle(v._id)">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="empty-state" *ngIf="!isLoading && vehicles.length === 0">
+        <span>🚗</span><h3>No vehicles yet</h3><p>Add your first vehicle to start earning.</p>
+        <a routerLink="/owner/add-vehicle" class="btn-add">+ Add Vehicle</a>
+    </div>
+</div></section>

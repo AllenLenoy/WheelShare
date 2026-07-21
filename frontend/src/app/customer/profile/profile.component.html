@@ -1,0 +1,97 @@
+<section class="profile-page">
+    <div class="page-container">
+        <h1 class="page-title">My Profile</h1>
+
+        <div class="profile-grid" *ngIf="user">
+
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="profile-avatar">{{ userInitial }}</div>
+                <h2 class="profile-name">{{ user.name }}</h2>
+                <span class="profile-role">{{ user.role | titlecase }}</span>
+                <p class="profile-email">{{ user.email }}</p>
+                <p class="profile-date" *ngIf="user.createdAt">Member since {{ user.createdAt | date:'mediumDate' }}</p>
+            </div>
+
+            <!-- Edit Section -->
+            <div class="profile-details">
+
+                <!-- Profile Info -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>Personal Information</h3>
+                        <button class="btn-edit" *ngIf="!isEditing" (click)="startEditing()">Edit</button>
+                    </div>
+
+                    <p class="success-text" *ngIf="profileMessage">{{ profileMessage }}</p>
+                    <p class="error-text" *ngIf="profileError">{{ profileError }}</p>
+
+                    <!-- View Mode -->
+                    <div class="info-rows" *ngIf="!isEditing">
+                        <div class="info-row">
+                            <span class="info-label">Name</span>
+                            <span class="info-value">{{ user.name }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">{{ user.email }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Role</span>
+                            <span class="info-value">{{ user.role | titlecase }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Edit Mode -->
+                    <div class="edit-form" *ngIf="isEditing">
+                        <div class="form-group">
+                            <label for="editName">Name</label>
+                            <input type="text" id="editName" [(ngModel)]="editName">
+                        </div>
+                        <div class="form-group">
+                            <label for="editEmail">Email</label>
+                            <input type="email" id="editEmail" [(ngModel)]="editEmail">
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn-save" (click)="saveProfile()" [disabled]="isSaving">
+                                {{ isSaving ? 'Saving...' : 'Save Changes' }}
+                            </button>
+                            <button class="btn-cancel-edit" (click)="cancelEditing()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password Section -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>Security</h3>
+                        <button class="btn-edit" (click)="togglePasswordForm()">
+                            {{ isChangingPassword ? 'Cancel' : 'Change Password' }}
+                        </button>
+                    </div>
+
+                    <p class="success-text" *ngIf="passwordMessage">{{ passwordMessage }}</p>
+                    <p class="error-text" *ngIf="passwordError">{{ passwordError }}</p>
+
+                    <div class="edit-form" *ngIf="isChangingPassword">
+                        <div class="form-group">
+                            <label for="oldPassword">Current Password</label>
+                            <input type="password" id="oldPassword" [(ngModel)]="oldPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" [(ngModel)]="newPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword">
+                        </div>
+                        <button class="btn-save" (click)="savePassword()" [disabled]="isSavingPassword">
+                            {{ isSavingPassword ? 'Updating...' : 'Update Password' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

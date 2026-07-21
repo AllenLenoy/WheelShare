@@ -58,20 +58,34 @@ const deleteVehicle = async (req, res) => {
     }
 };
 
+const updateUserRole = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        user.role = req.body.role || user.role;
+        await user.save();
+        res.json({ message: "Role updated successfully" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 const getDashboardStats = async (req, res) => {
     try {
         const userCount = await User.countDocuments();
         const vehicleCount = await Vehicle.countDocuments();
         const bookingCount = await Booking.countDocuments();
-        const activeBookingCount = await Booking.countDocuments({ status: { $in: ['Pending', 'Accepted'] } });
-        const completedBookingCount = await Booking.countDocuments({ status: 'Completed' });
+        const completedBookings = await Booking.find({ status: 'Completed' });
+        
+        const totalRevenue = completedBookings.reduce((sum, b) => sum + (b.totalPrice || 0), 0);
 
         res.json({
-            users: userCount,
-            vehicles: vehicleCount,
-            bookings: bookingCount,
-            activeBookings: activeBookingCount,
-            completedBookings: completedBookingCount
+            totalUsers: userCount,
+            totalVehicles: vehicleCount,
+            totalBookings: bookingCount,
+            totalRevenue: totalRevenue
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -84,5 +98,6 @@ module.exports = {
     getAllBookings,
     deleteUser,
     deleteVehicle,
+    updateUserRole,
     getDashboardStats
 };

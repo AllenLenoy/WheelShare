@@ -1,0 +1,53 @@
+<section class="page">
+    <div class="page-container">
+        <div class="page-header">
+            <div>
+                <a routerLink="/admin/dashboard" class="back-link">← Back to Dashboard</a>
+                <h1>Manage Users</h1>
+            </div>
+        </div>
+
+        <div class="loading-container" *ngIf="isLoading">
+            <div class="spinner"></div>
+        </div>
+
+        <div class="table-container" *ngIf="!isLoading && users.length > 0">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Joined</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users">
+                        <td><strong>{{ user.name }}</strong></td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <span class="role-badge" [ngClass]="user.role">{{ user.role }}</span>
+                        </td>
+                        <td>{{ user.createdAt | date:'mediumDate' }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <select #roleSelect [value]="user.role" (change)="updateRole(user._id, roleSelect.value)" class="role-select">
+                                    <option value="customer">Customer</option>
+                                    <option value="owner">Owner</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                                <button class="btn-delete" (click)="deleteUser(user._id)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="empty-state" *ngIf="!isLoading && users.length === 0">
+            <span>👥</span>
+            <h3>No users found</h3>
+        </div>
+    </div>
+</section>

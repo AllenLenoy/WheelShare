@@ -1,0 +1,63 @@
+.not-found-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 80px 24px;
+    text-align: center;
+}
+.error-code {
+    display: block;
+    font-family: var(--ff-heading, 'Outfit', sans-serif);
+    font-size: 8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 16px;
+}
+.not-found-content h1 {
+    font-family: var(--ff-heading, 'Outfit', sans-serif);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--clr-dark, #0f172a);
+    margin: 0 0 12px;
+}
+.not-found-content p {
+    color: var(--clr-gray-500, #64748b);
+    font-size: 1rem;
+    margin-bottom: 32px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.not-found-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.btn-home {
+    padding: 12px 28px;
+    background: var(--clr-primary, #2563eb);
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s, transform 0.2s;
+}
+.btn-home:hover { background: var(--clr-primary-dark, #1d4ed8); transform: translateY(-2px); }
+.btn-browse {
+    padding: 12px 28px;
+    border: 1.5px solid var(--clr-gray-300, #cbd5e1);
+    color: var(--clr-dark, #0f172a);
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+}
+.btn-browse:hover { border-color: var(--clr-primary, #2563eb); color: var(--clr-primary); }

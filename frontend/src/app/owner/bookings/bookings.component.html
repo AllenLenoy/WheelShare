@@ -1,0 +1,19 @@
+<section class="page"><div class="page-container">
+    <h1>Booking Requests</h1>
+    <div class="loading-container" *ngIf="isLoading"><div class="spinner"></div></div>
+    <div class="booking-list" *ngIf="!isLoading && bookings.length > 0">
+        <div class="booking-row" *ngFor="let b of bookings">
+            <div class="row-info"><h3>{{ getVehicleName(b) }}</h3><p>Customer: {{ getCustomerName(b) }}</p><p>{{ b.startDate | date:'mediumDate' }} → {{ b.endDate | date:'mediumDate' }}</p></div>
+            <span class="row-price">₹{{ b.totalPrice | number }}</span>
+            <span class="status-badge" [ngClass]="getStatusClass(b.status)">{{ b.status }}</span>
+            <div class="row-actions" *ngIf="b.status === 'Pending'">
+                <button class="btn-accept" (click)="updateStatus(b._id, 'Accepted')">Accept</button>
+                <button class="btn-reject" (click)="updateStatus(b._id, 'Rejected')">Reject</button>
+            </div>
+            <div class="row-actions" *ngIf="b.status === 'Accepted'">
+                <button class="btn-complete" (click)="updateStatus(b._id, 'Completed')">Mark Complete</button>
+            </div>
+        </div>
+    </div>
+    <div class="empty-state" *ngIf="!isLoading && bookings.length === 0"><span>📋</span><h3>No booking requests yet</h3></div>
+</div></section>

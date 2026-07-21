@@ -1,0 +1,46 @@
+<section class="page">
+    <div class="page-container">
+        <div class="page-header">
+            <div>
+                <a routerLink="/admin/dashboard" class="back-link">← Back to Dashboard</a>
+                <h1>Manage Bookings</h1>
+            </div>
+        </div>
+
+        <div class="loading-container" *ngIf="isLoading"><div class="spinner"></div></div>
+
+        <div class="table-container" *ngIf="!isLoading && bookings.length > 0">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Vehicle</th>
+                        <th>Customer</th>
+                        <th>Owner</th>
+                        <th>Dates</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let b of bookings">
+                        <td><small>{{ b._id.substring(b._id.length - 8) }}</small></td>
+                        <td><strong>{{ getVehicleName(b.vehicle) }}</strong></td>
+                        <td>{{ getUserName(b.customer) }}</td>
+                        <td>{{ getUserName(b.owner) }}</td>
+                        <td><small>{{ b.startDate | date:'shortDate' }} - {{ b.endDate | date:'shortDate' }}</small></td>
+                        <td><strong>₹{{ b.totalPrice | number }}</strong></td>
+                        <td>
+                            <span class="status-badge" [ngClass]="getStatusClass(b.status)">{{ b.status }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="empty-state" *ngIf="!isLoading && bookings.length === 0">
+            <span>📋</span>
+            <h3>No bookings on the platform</h3>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,195 @@
+.vehicle-card {
+    background: var(--clr-white, #fff);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+    transition: transform 0.3s var(--ease-smooth, ease), box-shadow 0.3s var(--ease-smooth, ease);
+    display: flex;
+    flex-direction: column;
+}
+
+.vehicle-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.14);
+}
+
+/* ── Image ── */
+.card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.vehicle-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.card-availability {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(22, 163, 74, 0.9);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.card-availability.unavailable {
+    background: rgba(239, 68, 68, 0.9);
+}
+
+/* ── Body ── */
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.card-title {
+    font-family: var(--ff-heading, 'Outfit', sans-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--clr-dark, #0f172a);
+    margin: 0;
+}
+
+.card-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.stars {
+    display: flex;
+    gap: 1px;
+}
+
+.star {
+    font-size: 0.85rem;
+    color: var(--clr-gray-300, #cbd5e1);
+}
+
+.star.filled {
+    color: var(--clr-accent, #f59e0b);
+}
+
+.rating-value {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--clr-gray-500, #64748b);
+}
+
+/* ── Location ── */
+.card-location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    color: var(--clr-gray-500, #64748b);
+}
+
+.location-icon {
+    font-size: 0.9rem;
+}
+
+/* ── Specs ── */
+.card-specs {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.spec {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: var(--clr-gray-700, #334155);
+    background: var(--clr-gray-100, #f1f5f9);
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+.spec-icon {
+    font-size: 0.85rem;
+}
+
+/* ── Footer ── */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--clr-gray-100, #f1f5f9);
+}
+
+.card-price {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+
+.price-amount {
+    font-family: var(--ff-heading, 'Outfit', sans-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--clr-primary, #2563eb);
+}
+
+.price-period {
+    font-size: 0.8rem;
+    color: var(--clr-gray-500, #64748b);
+}
+
+.btn-view {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    background: var(--clr-primary, #2563eb);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-view:hover {
+    background: var(--clr-primary-dark, #1d4ed8);
+    transform: translateY(-1px);
+}

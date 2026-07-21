@@ -7,6 +7,7 @@ const {
     getAllBookings,
     deleteUser,
     deleteVehicle,
+    updateUserRole,
     getDashboardStats
 } = require("../controllers/admin.controller");
 
@@ -21,6 +22,7 @@ router.get("/users", getAllUsers);
 router.get("/vehicles", getAllVehicles);
 router.get("/bookings", getAllBookings);
 router.delete("/user/:id", deleteUser);
+router.put("/user/:id/role", updateUserRole);
 router.delete("/vehicle/:id", deleteVehicle);
 router.get("/dashboard", getDashboardStats);
 

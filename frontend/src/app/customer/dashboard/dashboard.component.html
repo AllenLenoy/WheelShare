@@ -1,1 +1,89 @@
-<p>dashboard works!</p>
+<section class="customer-dashboard">
+
+    <!-- Hero Section -->
+    <div class="dashboard-hero">
+        <div class="hero-content">
+            <p class="hero-greeting">Hey, {{ userName }} 👋</p>
+            <h1>Find Your Perfect Ride</h1>
+            <p class="hero-subtitle">Browse verified vehicles and book in just a few clicks</p>
+
+            <!-- Search Bar -->
+            <div class="hero-search">
+                <span class="search-icon">🔍</span>
+                <input
+                    type="text"
+                    placeholder="Search by brand, model, or city..."
+                    [(ngModel)]="searchQuery"
+                    (input)="applyFilters()"
+                >
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+
+        <!-- Category Filters -->
+        <div class="category-section">
+            <h2 class="section-heading">Browse by Category</h2>
+            <div class="category-pills">
+                <button
+                    *ngFor="let cat of categories"
+                    class="category-pill"
+                    [class.active]="selectedCategory === cat"
+                    (click)="filterByCategory(cat)"
+                >
+                    <span class="pill-icon" *ngIf="cat === 'Car'">🚗</span>
+                    <span class="pill-icon" *ngIf="cat === 'Bike'">🏍️</span>
+                    <span class="pill-icon" *ngIf="cat === 'Scooter'">🛵</span>
+                    {{ cat }}
+                </button>
+                <button class="category-pill" [class.active]="!selectedCategory" (click)="selectedCategory = ''; applyFilters()">
+                    All
+                </button>
+            </div>
+        </div>
+
+        <!-- Featured Vehicles -->
+        <div class="section" *ngIf="featuredVehicles.length > 0 && !selectedCategory && !searchQuery">
+            <div class="section-header">
+                <h2 class="section-heading">⭐ Featured Vehicles</h2>
+                <a routerLink="/vehicles" class="view-all">View All →</a>
+            </div>
+            <div class="vehicle-grid">
+                <app-vehicle-card
+                    *ngFor="let vehicle of featuredVehicles"
+                    [vehicle]="vehicle"
+                ></app-vehicle-card>
+            </div>
+        </div>
+
+        <!-- Available Vehicles -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-heading">Available Vehicles</h2>
+                <span class="result-count">{{ filteredVehicles.length }} results</span>
+            </div>
+
+            <!-- Loading -->
+            <div class="loading-container" *ngIf="isLoading">
+                <div class="spinner"></div>
+                <p>Loading vehicles...</p>
+            </div>
+
+            <div class="vehicle-grid" *ngIf="!isLoading && filteredVehicles.length > 0">
+                <app-vehicle-card
+                    *ngFor="let vehicle of filteredVehicles; let i = index"
+                    [vehicle]="vehicle"
+                    [style.animation-delay]="(i * 0.05) + 's'"
+                    class="card-animate"
+                ></app-vehicle-card>
+            </div>
+
+            <div class="empty-state" *ngIf="!isLoading && filteredVehicles.length === 0">
+                <span class="empty-icon">🔍</span>
+                <h3>No vehicles found</h3>
+                <p>Try a different search or category</p>
+            </div>
+        </div>
+    </div>
+</section>

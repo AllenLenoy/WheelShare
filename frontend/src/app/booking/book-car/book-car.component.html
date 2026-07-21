@@ -1,1 +1,91 @@
-<p>book-car works!</p>
+<section class="booking-page">
+    <div class="booking-container" *ngIf="!isLoading && vehicle && !bookingSuccess">
+
+        <a [routerLink]="['/vehicles', vehicle._id]" class="back-link">← Back to Vehicle</a>
+
+        <h1 class="page-title">Book Your Ride</h1>
+
+        <div class="booking-grid">
+
+            <!-- Vehicle Summary -->
+            <div class="vehicle-summary">
+                <div class="summary-image">
+                    <img [src]="displayImage" [alt]="vehicle.brand + ' ' + vehicle.model">
+                </div>
+                <div class="summary-info">
+                    <h2>{{ vehicle.brand }} {{ vehicle.model }}</h2>
+                    <p class="summary-subtitle">{{ vehicle.name }} · {{ vehicle.year }}</p>
+                    <div class="summary-specs">
+                        <span>⛽ {{ vehicle.fuelType }}</span>
+                        <span>⚙️ {{ vehicle.transmission }}</span>
+                        <span>👤 {{ vehicle.seats }} seats</span>
+                    </div>
+                    <div class="summary-location">📍 {{ vehicle.location }}</div>
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="booking-form-card">
+                <h3>Select Your Dates</h3>
+
+                <div class="form-group">
+                    <label for="startDate">Pickup Date</label>
+                    <input type="date" id="startDate" [(ngModel)]="startDate" [min]="minDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="endDate">Return Date</label>
+                    <input type="date" id="endDate" [(ngModel)]="endDate" [min]="startDate || minDate">
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="price-breakdown" *ngIf="totalDays > 0">
+                    <div class="breakdown-row">
+                        <span>₹{{ vehicle.pricePerDay | number }} × {{ totalDays }} day{{ totalDays > 1 ? 's' : '' }}</span>
+                        <span>₹{{ totalPrice | number }}</span>
+                    </div>
+                    <div class="breakdown-divider"></div>
+                    <div class="breakdown-row total">
+                        <span>Total</span>
+                        <span>₹{{ totalPrice | number }}</span>
+                    </div>
+                </div>
+
+                <p class="error-text" *ngIf="bookingError">{{ bookingError }}</p>
+
+                <button
+                    class="btn-confirm"
+                    (click)="confirmBooking()"
+                    [disabled]="!isFormValid || isBooking"
+                >
+                    {{ isBooking ? 'Booking...' : 'Confirm Booking' }}
+                </button>
+
+                <div class="booking-features">
+                    <div class="feature"><span>✅</span> Free cancellation within 24 hours</div>
+                    <div class="feature"><span>🛡️</span> Insurance included</div>
+                    <div class="feature"><span>⚡</span> Instant confirmation</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success State -->
+    <div class="success-container" *ngIf="bookingSuccess">
+        <div class="success-card">
+            <span class="success-icon">🎉</span>
+            <h2>Booking Confirmed!</h2>
+            <p>Your booking has been placed successfully. The vehicle owner will confirm it shortly.</p>
+            <div class="success-actions">
+                <a routerLink="/customer/bookings" class="btn-primary">View My Bookings</a>
+                <a routerLink="/vehicles" class="btn-outline">Browse More Cars</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-container" *ngIf="isLoading">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+</section>

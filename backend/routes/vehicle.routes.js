@@ -13,6 +13,7 @@ const {
 
 const { protect } = require("../middleware/auth.middleware");
 const { authorize } = require("../middleware/role.middleware");
+const { upload } = require("../config/cloudinary");
 
 // Public routes
 router.get("/", getAllVehicles);
@@ -21,8 +22,8 @@ router.get("/:id", getVehicleById);
 router.get("/owner/:ownerId", getOwnerVehicles);
 
 // Protected routes (Owner and Admin only for modifications)
-router.post("/", protect, authorize("owner", "admin"), addVehicle);
-router.put("/:id", protect, authorize("owner", "admin"), updateVehicle);
+router.post("/", protect, authorize("owner", "admin"), upload.single("image"), addVehicle);
+router.put("/:id", protect, authorize("owner", "admin"), upload.single("image"), updateVehicle);
 router.delete("/:id", protect, authorize("owner", "admin"), deleteVehicle);
 
 module.exports = router;

@@ -1,0 +1,86 @@
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+}
+
+.toast-item {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--clr-white);
+    padding: 14px 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    min-width: 300px;
+    max-width: 400px;
+    animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    border-left: 6px solid;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-item.success { border-left-color: var(--clr-success); }
+.toast-item.error { border-left-color: var(--clr-error); }
+.toast-item.info { border-left-color: var(--clr-primary); }
+.toast-item.warning { border-left-color: var(--clr-warning); }
+
+.toast-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.success .toast-icon { background: var(--clr-success); }
+.error .toast-icon { background: var(--clr-error); }
+.info .toast-icon { background: var(--clr-primary); }
+.warning .toast-icon { background: var(--clr-warning); }
+
+.toast-message {
+    margin: 0;
+    font-size: 0.95rem;
+    font-family: var(--ff-body);
+    color: var(--clr-dark);
+    flex: 1;
+    font-weight: 500;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--clr-gray-500);
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 4px;
+}
+.toast-close:hover { color: var(--clr-dark); }
+
+@media (max-width: 480px) {
+    .toast-container {
+        bottom: auto;
+        top: 24px;
+        right: 16px;
+        left: 16px;
+    }
+    .toast-item { min-width: 0; width: 100%; }
+    @keyframes slideIn {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+}

@@ -1,1 +1,46 @@
-<p>footer works!</p>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a routerLink="/" class="footer-logo">
+                    <span class="logo-icon">🚗</span>
+                    <span class="logo-text">Wheel<span class="logo-highlight">Share</span></span>
+                </a>
+                <p class="footer-tagline">Making car rental accessible, affordable, and enjoyable for everyone.</p>
+            </div>
+
+            <div class="footer-links-group">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a routerLink="/">Home</a></li>
+                    <li><a routerLink="/vehicles">Browse Cars</a></li>
+                    <li><a routerLink="/auth/register">Sign Up</a></li>
+                    <li><a routerLink="/auth/login">Log In</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-group">
+                <h4 class="footer-heading">Support</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Help Centre</a></li>
+                    <li><a href="#">Safety</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-group">
+                <h4 class="footer-heading">Get in Touch</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:hello&#64;wheelshare.in">hello&#64;wheelshare.in</a></li>
+                    <li><a href="tel:+911234567890">+91 12345 67890</a></li>
+                    <li><span>Hyderabad, India</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; {{ currentYear }} WheelShare. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
