@@ -1,129 +1,79 @@
 <div class="auth-page">
-
     <div class="auth-card">
-
         <div class="auth-header">
             <h2>Create Account</h2>
             <p>Join WheelShare and start your journey</p>
         </div>
 
         <form [formGroup]="registerForm" (ngSubmit)="register()">
-
-            <!-- Name -->
-
+            
             <div class="form-group">
-
-                <label for="name">Full Name</label>
-
+                <label for="name" class="form-label">Full Name</label>
                 <input
                     type="text"
                     id="name"
                     formControlName="name"
+                    class="form-control"
                     placeholder="Enter your full name"
                 >
-
-                <small
-                    class="error"
-                    *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')"
-                >
+                <small class="error" *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('required')">
                     Name is required.
                 </small>
-
-                <small
-                    class="error"
-                    *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('minlength')"
-                >
+                <small class="error" *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.hasError('minlength')">
                     Name must be at least 3 characters.
                 </small>
-
             </div>
 
-
-            <!-- Email -->
-
             <div class="form-group">
-
-                <label for="email">Email</label>
-
+                <label for="email" class="form-label">Email</label>
                 <input
                     type="email"
                     id="email"
                     formControlName="email"
+                    class="form-control"
                     placeholder="Enter your email"
                 >
-
-                <small
-                    class="error"
-                    *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('required')"
-                >
+                <small class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('required')">
                     Email is required.
                 </small>
-
-                <small
-                    class="error"
-                    *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('email')"
-                >
+                <small class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.hasError('email')">
                     Please enter a valid email.
                 </small>
-
             </div>
 
-
-            <!-- Password -->
-
             <div class="form-group">
-
-                <label for="password">Password</label>
-
+                <label for="password" class="form-label">Password</label>
                 <input
                     type="password"
                     id="password"
                     formControlName="password"
+                    class="form-control"
                     placeholder="Create a password"
                 >
-
-                <small
-                    class="error"
-                    *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('required')"
-                >
+                <small class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('required')">
                     Password is required.
                 </small>
-
-                <small
-                    class="error"
-                    *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('minlength')"
-                >
+                <small class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('minlength')">
                     Password must be at least 6 characters.
                 </small>
-
             </div>
 
-
-            <!-- Role -->
-
             <div class="form-group">
-
-                <label for="role">I want to</label>
-
-                <select id="role" formControlName="role">
+                <label for="role" class="form-label">I want to</label>
+                <select id="role" formControlName="role" class="form-control" style="appearance: none; cursor: pointer;">
                     <option value="customer">Rent a Vehicle (Customer)</option>
                     <option value="owner">List my Vehicle (Owner)</option>
                 </select>
-
             </div>
 
-
-            <button type="submit" class="btn-submit">
-                Sign Up
+            <button type="submit" class="btn-primary btn-submit" [disabled]="registerForm.invalid || isLoading">
+                {{ isLoading ? 'Creating Account...' : 'Sign Up' }}
             </button>
-
         </form>
 
         <p class="auth-footer">
             Already have an account?
             <a routerLink="/auth/login">Login</a>
         </p>
-
     </div>
-
 </div>

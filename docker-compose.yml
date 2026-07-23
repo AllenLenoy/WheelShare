@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: wheelshare-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - wheelshare-net
+
+  backend:
+    build:
+      context: ./backend
+    container_name: wheelshare-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://admin:password123@mongo:27017/wheelshare?authSource=admin
+      - JWT_SECRET=supersecret_wheelshare_key_2026
+      - JWT_EXPIRES_IN=30d
+    depends_on:
+      - mongo
+    networks:
+      - wheelshare-net
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: wheelshare-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - wheelshare-net
+
+volumes:
+  mongo_data:
+
+networks:
+  wheelshare-net:
+    driver: bridge

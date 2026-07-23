@@ -55,6 +55,8 @@ export class LoginComponent {
 
   }
 
+  isLoading: boolean = false;
+
   // Getter for email field
   get email() {
     return this.loginForm.get('email');
@@ -68,18 +70,17 @@ export class LoginComponent {
   login() {
 
     if (this.loginForm.invalid) {
-
       this.loginForm.markAllAsTouched();
       return;
-
     }
 
+    this.isLoading = true;
     const loginData = this.loginForm.value;
 
     this.authService.login(loginData).subscribe({
 
       next: (response) => {
-
+        this.isLoading = false;
         console.log(response);
 
         // Save token
@@ -91,15 +92,12 @@ export class LoginComponent {
         this.toastService.success(response.message || 'Logged in successfully!');
 
         this.router.navigate(['/']);
-
       },
 
       error: (error) => {
-
+        this.isLoading = false;
         console.error(error);
-
         this.toastService.error(error.error?.message || 'Login failed');
-
       }
 
     });

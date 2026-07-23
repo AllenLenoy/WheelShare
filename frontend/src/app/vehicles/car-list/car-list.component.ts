@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { VehicleService } from '../../services/vehicle.service';
 import { Vehicle } from '../../models/vehicle';
 import { VehicleCardComponent } from '../vehicle-card/vehicle-card.component';
@@ -32,10 +32,14 @@ export class CarListComponent implements OnInit {
     transmissions = ['Manual', 'Automatic'];
     locations: string[] = [];
 
-    constructor(private vehicleService: VehicleService) { }
+    constructor(private vehicleService: VehicleService, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
-        this.loadVehicles();
+        this.route.queryParams.subscribe(params => {
+            if (params['location']) this.searchQuery = params['location']; // Use searchQuery for location input from home
+            if (params['type']) this.selectedType = params['type'];
+            this.loadVehicles();
+        });
     }
 
     loadVehicles(): void {
@@ -43,8 +47,8 @@ export class CarListComponent implements OnInit {
         this.vehicleService.getAllVehicles().subscribe({
             next: (vehicles) => {
                 this.vehicles = vehicles;
-                this.filteredVehicles = vehicles;
                 this.locations = [...new Set(vehicles.map(v => v.location))].sort();
+                this.applyFilters();
                 this.isLoading = false;
             },
             error: (err) => {

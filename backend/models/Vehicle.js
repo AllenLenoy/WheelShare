@@ -61,6 +61,11 @@ const vehicleSchema = new mongoose.Schema(
         default:""
     },
 
+    images: {
+        type: [String],
+        default: []
+    },
+
     seats:{
         type:Number,
         default:5

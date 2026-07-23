@@ -1,89 +1,135 @@
-<section class="customer-dashboard">
-
-    <!-- Hero Section -->
-    <div class="dashboard-hero">
-        <div class="hero-content">
-            <p class="hero-greeting">Hey, {{ userName }} 👋</p>
-            <h1>Find Your Perfect Ride</h1>
-            <p class="hero-subtitle">Browse verified vehicles and book in just a few clicks</p>
-
-            <!-- Search Bar -->
-            <div class="hero-search">
-                <span class="search-icon">🔍</span>
-                <input
-                    type="text"
-                    placeholder="Search by brand, model, or city..."
-                    [(ngModel)]="searchQuery"
-                    (input)="applyFilters()"
-                >
-            </div>
-        </div>
-    </div>
-
-    <div class="dashboard-container">
-
-        <!-- Category Filters -->
-        <div class="category-section">
-            <h2 class="section-heading">Browse by Category</h2>
-            <div class="category-pills">
-                <button
-                    *ngFor="let cat of categories"
-                    class="category-pill"
-                    [class.active]="selectedCategory === cat"
-                    (click)="filterByCategory(cat)"
-                >
-                    <span class="pill-icon" *ngIf="cat === 'Car'">🚗</span>
-                    <span class="pill-icon" *ngIf="cat === 'Bike'">🏍️</span>
-                    <span class="pill-icon" *ngIf="cat === 'Scooter'">🛵</span>
-                    {{ cat }}
-                </button>
-                <button class="category-pill" [class.active]="!selectedCategory" (click)="selectedCategory = ''; applyFilters()">
-                    All
+<main class="page-layout">
+    <!-- Personalized Welcome Banner -->
+    <section class="welcome-banner">
+        <div class="banner-gradient"></div>
+        <div class="banner-content">
+            <h1 class="welcome-title">Welcome back, {{ userName }}.</h1>
+            <p class="welcome-subtitle">Your next adventure is waiting. Manage your bookings or explore new rides.</p>
+            <div class="banner-actions">
+                <a routerLink="/vehicles" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <span class="material-symbols-outlined">directions_car</span>
+                    Browse Vehicles
+                </a>
+                <button class="btn-outline" style="display: inline-flex; align-items: center; gap: 8px;">
+                    <span class="material-symbols-outlined">receipt_long</span>
+                    Manage Bookings
                 </button>
             </div>
         </div>
+        <div class="banner-image">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKXNBE18EVg6-BzbQKo4EjyxhpIlzkD12_nkLqpyzhogAoCqqx8xpWVPJFpAo0mVqFPRa6HARW4mCfkq-TKiieMvP4R32IUrC1Z5y5QKTFcel2VKl9KsCHUOSv5XZ710FaY2j0jGdZ5PKKKJNR3RobzuaexFRFbNL1Ow5lrsImSDqKfH72FXHgCrpCg7inR40K_kdKanXZuW86CwiI6Hhi939l74oI_koYYAog46Ka70Pww56ITnQsXP-9M2ijSrlg14ROa_Eb2EI" alt="Welcome banner image">
+        </div>
+    </section>
 
-        <!-- Featured Vehicles -->
-        <div class="section" *ngIf="featuredVehicles.length > 0 && !selectedCategory && !searchQuery">
-            <div class="section-header">
-                <h2 class="section-heading">⭐ Featured Vehicles</h2>
-                <a routerLink="/vehicles" class="view-all">View All →</a>
+    <!-- Bento Grid: Stats & Quick Actions -->
+    <section class="bento-grid">
+        <!-- Stat Card 1 -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon-bg bg-secondary-light text-secondary">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                </div>
+                <span class="stat-badge text-secondary bg-secondary-light">This Year</span>
             </div>
-            <div class="vehicle-grid">
-                <app-vehicle-card
-                    *ngFor="let vehicle of featuredVehicles"
-                    [vehicle]="vehicle"
-                ></app-vehicle-card>
+            <div>
+                <h3 class="stat-value">12</h3>
+                <p class="stat-label">Completed Rentals</p>
             </div>
         </div>
-
-        <!-- Available Vehicles -->
-        <div class="section">
-            <div class="section-header">
-                <h2 class="section-heading">Available Vehicles</h2>
-                <span class="result-count">{{ filteredVehicles.length }} results</span>
+        <!-- Stat Card 2 -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon-bg bg-tertiary-light text-tertiary">
+                    <span class="material-symbols-outlined">savings</span>
+                </div>
+                <span class="stat-badge text-tertiary bg-tertiary-light">Lifetime</span>
             </div>
-
-            <!-- Loading -->
-            <div class="loading-container" *ngIf="isLoading">
-                <div class="spinner"></div>
-                <p>Loading vehicles...</p>
-            </div>
-
-            <div class="vehicle-grid" *ngIf="!isLoading && filteredVehicles.length > 0">
-                <app-vehicle-card
-                    *ngFor="let vehicle of filteredVehicles; let i = index"
-                    [vehicle]="vehicle"
-                    [style.animation-delay]="(i * 0.05) + 's'"
-                    class="card-animate"
-                ></app-vehicle-card>
-            </div>
-
-            <div class="empty-state" *ngIf="!isLoading && filteredVehicles.length === 0">
-                <span class="empty-icon">🔍</span>
-                <h3>No vehicles found</h3>
-                <p>Try a different search or category</p>
+            <div>
+                <h3 class="stat-value">$450</h3>
+                <p class="stat-label">Estimated Savings</p>
             </div>
         </div>
-    </div>
-</section>
+        <!-- Quick Actions List -->
+        <div class="quick-links">
+            <h3 class="quick-links-title">Quick Links</h3>
+            <a href="#" class="quick-link-item">
+                <div class="quick-link-icon"><span class="material-symbols-outlined">favorite</span></div>
+                <span class="quick-link-text">Saved Vehicles</span>
+                <span class="material-symbols-outlined quick-link-arrow">chevron_right</span>
+            </a>
+            <a href="#" class="quick-link-item">
+                <div class="quick-link-icon"><span class="material-symbols-outlined">payments</span></div>
+                <span class="quick-link-text">Payment Methods</span>
+                <span class="material-symbols-outlined quick-link-arrow">chevron_right</span>
+            </a>
+            <a href="#" class="quick-link-item">
+                <div class="quick-link-icon"><span class="material-symbols-outlined">history</span></div>
+                <span class="quick-link-text">Rental History</span>
+                <span class="material-symbols-outlined quick-link-arrow">chevron_right</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="search-section">
+        <div class="search-bar">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" placeholder="Search by brand, model, or city..." [(ngModel)]="searchQuery" (input)="applyFilters()">
+        </div>
+    </section>
+
+    <!-- Category Filters -->
+    <section class="category-section">
+        <h2 class="section-title">Browse by Category</h2>
+        <div class="category-pills">
+            <button
+                *ngFor="let cat of categories"
+                class="category-pill"
+                [class.active]="selectedCategory === cat"
+                (click)="filterByCategory(cat)"
+            >
+                <span class="material-symbols-outlined" *ngIf="cat === 'Car'">directions_car</span>
+                <span class="material-symbols-outlined" *ngIf="cat === 'Bike'">two_wheeler</span>
+                <span class="material-symbols-outlined" *ngIf="cat === 'Scooter'">electric_scooter</span>
+                {{ cat }}
+            </button>
+            <button class="category-pill" [class.active]="!selectedCategory" (click)="selectedCategory = ''; applyFilters()">
+                All
+            </button>
+        </div>
+    </section>
+
+    <!-- Featured Vehicles -->
+    <section class="vehicles-section" *ngIf="featuredVehicles.length > 0 && !selectedCategory && !searchQuery">
+        <div class="section-header">
+            <h2 class="section-title">Featured Vehicles</h2>
+            <a routerLink="/vehicles" class="view-all">View All <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+        </div>
+        <div class="vehicle-grid">
+            <app-vehicle-card *ngFor="let vehicle of featuredVehicles" [vehicle]="vehicle"></app-vehicle-card>
+        </div>
+    </section>
+
+    <!-- Available Vehicles -->
+    <section class="vehicles-section">
+        <div class="section-header">
+            <h2 class="section-title">Available Vehicles</h2>
+            <span class="result-count">{{ filteredVehicles.length }} results</span>
+        </div>
+
+        <div class="loading-container" *ngIf="isLoading">
+            <div class="spinner"></div>
+            <p>Loading vehicles...</p>
+        </div>
+
+        <div class="vehicle-grid" *ngIf="!isLoading && filteredVehicles.length > 0">
+            <app-vehicle-card *ngFor="let vehicle of filteredVehicles" [vehicle]="vehicle"></app-vehicle-card>
+        </div>
+
+        <div class="empty-state" *ngIf="!isLoading && filteredVehicles.length === 0">
+            <span class="material-symbols-outlined empty-icon">search_off</span>
+            <h3>No vehicles found</h3>
+            <p>Try a different search or category</p>
+        </div>
+    </section>
+</main>

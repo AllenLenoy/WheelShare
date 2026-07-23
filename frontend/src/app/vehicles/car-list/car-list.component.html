@@ -1,97 +1,101 @@
-<section class="vehicle-list-page">
-    <!-- Hero Header -->
-    <div class="page-hero">
-        <div class="hero-content">
-            <h1>Browse Vehicles</h1>
-            <p>Find the perfect ride for your next adventure</p>
+<main class="page-layout">
+    
+    <!-- Sidebar Filters -->
+    <aside class="sidebar-filters">
+        <div class="filter-header">Filters</div>
+        
+        <!-- Price Range -->
+        <div class="filter-section">
+            <label>Max Price per day</label>
+            <span class="filter-value">₹{{ maxPrice || 'Any' }}</span>
+            <input type="range" class="range-slider" min="500" max="15000" step="500" [(ngModel)]="maxPrice" (change)="applyFilters()">
         </div>
-    </div>
+        
+        <!-- Vehicle Type -->
+        <div class="filter-section">
+            <label>Vehicle Type</label>
+            <select class="form-control" [(ngModel)]="selectedType" (change)="applyFilters()" style="appearance: none; cursor: pointer;">
+                <option value="">All Types</option>
+                <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+            </select>
+        </div>
+        
+        <!-- Fuel -->
+        <div class="filter-section">
+            <label>Fuel Type</label>
+            <select class="form-control" [(ngModel)]="selectedFuel" (change)="applyFilters()" style="appearance: none; cursor: pointer;">
+                <option value="">All Fuels</option>
+                <option *ngFor="let fuel of fuelTypes" [value]="fuel">{{ fuel }}</option>
+            </select>
+        </div>
+        
+        <!-- Transmission -->
+        <div class="filter-section">
+            <label>Transmission</label>
+            <select class="form-control" [(ngModel)]="selectedTransmission" (change)="applyFilters()" style="appearance: none; cursor: pointer;">
+                <option value="">All Transmissions</option>
+                <option *ngFor="let trans of transmissions" [value]="trans">{{ trans }}</option>
+            </select>
+        </div>
+        
+        <!-- Location -->
+        <div class="filter-section">
+            <label>Location</label>
+            <select class="form-control" [(ngModel)]="selectedLocation" (change)="applyFilters()" style="appearance: none; cursor: pointer;">
+                <option value="">All Locations</option>
+                <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+            </select>
+        </div>
+        
+        <button class="btn-ghost" style="width: 100%" *ngIf="activeFilterCount > 0" (click)="clearFilters()">
+            Clear Filters ({{ activeFilterCount }})
+        </button>
+    </aside>
 
-    <div class="page-container">
-        <!-- Search & Filters -->
-        <div class="filters-section">
+    <!-- Main Content -->
+    <div class="main-content">
+        
+        <!-- Results Header -->
+        <div class="results-header">
+            <div>
+                <h1>Available Vehicles</h1>
+                <p>{{ filteredVehicles.length }} vehicles found</p>
+            </div>
+            
+            <!-- Search -->
             <div class="search-bar">
-                <span class="search-icon">🔍</span>
-                <input
-                    type="text"
-                    placeholder="Search by brand, model, or location..."
-                    [(ngModel)]="searchQuery"
-                    (input)="applyFilters()"
-                >
-            </div>
-
-            <div class="filter-row">
-                <div class="filter-group">
-                    <select [(ngModel)]="selectedType" (change)="applyFilters()">
-                        <option value="">All Types</option>
-                        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <select [(ngModel)]="selectedFuel" (change)="applyFilters()">
-                        <option value="">All Fuel Types</option>
-                        <option *ngFor="let fuel of fuelTypes" [value]="fuel">{{ fuel }}</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <select [(ngModel)]="selectedTransmission" (change)="applyFilters()">
-                        <option value="">All Transmissions</option>
-                        <option *ngFor="let trans of transmissions" [value]="trans">{{ trans }}</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <select [(ngModel)]="selectedLocation" (change)="applyFilters()">
-                        <option value="">All Locations</option>
-                        <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
-                    </select>
-                </div>
-
-                <div class="filter-group price-filter">
-                    <input
-                        type="number"
-                        placeholder="Max ₹/day"
-                        [(ngModel)]="maxPrice"
-                        (input)="applyFilters()"
-                        min="0"
-                    >
-                </div>
-
-                <button class="btn-clear" *ngIf="activeFilterCount > 0" (click)="clearFilters()">
-                    Clear ({{ activeFilterCount }})
-                </button>
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" placeholder="Search brand, model, location..." [(ngModel)]="searchQuery" (input)="applyFilters()">
             </div>
         </div>
 
-        <!-- Results Summary -->
-        <div class="results-summary">
-            <p>{{ filteredVehicles.length }} vehicle{{ filteredVehicles.length !== 1 ? 's' : '' }} found</p>
-        </div>
-
-        <!-- Loading State -->
-        <div class="loading-container" *ngIf="isLoading">
-            <div class="spinner"></div>
-            <p>Loading vehicles...</p>
+        <!-- Loading State (Skeletons) -->
+        <div class="skeleton-grid" *ngIf="isLoading">
+            <div class="skeleton-card" *ngFor="let i of [1, 2, 3, 4, 5, 6]">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-content">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line price"></div>
+                </div>
+            </div>
         </div>
 
         <!-- Vehicle Grid -->
         <div class="vehicle-grid" *ngIf="!isLoading && filteredVehicles.length > 0">
             <app-vehicle-card
-                *ngFor="let vehicle of filteredVehicles; let i = index"
+                *ngFor="let vehicle of filteredVehicles"
                 [vehicle]="vehicle"
-                [style.animation-delay]="(i * 0.06) + 's'"
-                class="card-animate"
             ></app-vehicle-card>
         </div>
 
         <!-- Empty State -->
         <div class="empty-state" *ngIf="!isLoading && filteredVehicles.length === 0">
-            <span class="empty-icon">🚗</span>
+            <span class="material-symbols-outlined" style="font-size: 48px; color: var(--clr-outline);">directions_car</span>
             <h3>No vehicles found</h3>
             <p>Try adjusting your filters or search query.</p>
             <button class="btn-primary" (click)="clearFilters()">Clear All Filters</button>
         </div>
+
     </div>
-</section>
+</main>

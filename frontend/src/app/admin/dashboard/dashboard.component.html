@@ -1,59 +1,89 @@
-<section class="admin-dashboard">
-    <div class="page-container">
-        <h1 class="page-title">Admin Dashboard</h1>
-        <p class="page-subtitle">Platform overview and management</p>
-
-        <div class="loading-container" *ngIf="isLoading">
-            <div class="spinner"></div>
-            <p>Loading stats...</p>
+<main class="page-layout">
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div>
+            <h1 class="page-title">Admin Dashboard</h1>
+            <p class="page-subtitle">Platform overview and management for the past 30 days.</p>
         </div>
+    </header>
 
-        <div *ngIf="!isLoading && stats">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-icon">👥</span>
-                    <div class="stat-info">
-                        <span class="stat-number">{{ stats.totalUsers || 0 }}</span>
-                        <span class="stat-label">Total Users</span>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-icon">🚗</span>
-                    <div class="stat-info">
-                        <span class="stat-number">{{ stats.totalVehicles || 0 }}</span>
-                        <span class="stat-label">Total Vehicles</span>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-icon">📋</span>
-                    <div class="stat-info">
-                        <span class="stat-number">{{ stats.totalBookings || 0 }}</span>
-                        <span class="stat-label">Total Bookings</span>
-                    </div>
-                </div>
-                <div class="stat-card revenue">
-                    <span class="stat-icon">💰</span>
-                    <div class="stat-info">
-                        <span class="stat-number">₹{{ (stats.totalRevenue || 0) | number }}</span>
-                        <span class="stat-label">Total Platform Revenue</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="admin-links">
-                <a routerLink="/admin/users" class="admin-card">
-                    <h3>Manage Users</h3>
-                    <p>View, edit roles, or delete users.</p>
-                </a>
-                <a routerLink="/admin/vehicles" class="admin-card">
-                    <h3>Manage Vehicles</h3>
-                    <p>Monitor and remove vehicles from the platform.</p>
-                </a>
-                <a routerLink="/admin/bookings" class="admin-card">
-                    <h3>Manage Bookings</h3>
-                    <p>View all platform booking history.</p>
-                </a>
-            </div>
-        </div>
+    <div class="loading-container" *ngIf="isLoading">
+        <div class="spinner"></div>
+        <p>Loading stats...</p>
     </div>
-</section>
+
+    <div *ngIf="!isLoading && stats">
+        <!-- Metrics Grid -->
+        <section class="metrics-grid">
+            <!-- Total Users -->
+            <div class="metric-card">
+                <div class="metric-header">
+                    <p class="metric-title">Total Users</p>
+                    <span class="material-symbols-outlined text-primary bg-primary-light">group</span>
+                </div>
+                <h2 class="metric-value">{{ stats.totalUsers || 0 }}</h2>
+            </div>
+
+            <!-- Revenue -->
+            <div class="metric-card">
+                <div class="metric-header">
+                    <p class="metric-title">Platform Revenue</p>
+                    <span class="material-symbols-outlined text-primary bg-primary-light">payments</span>
+                </div>
+                <h2 class="metric-value">₹{{ (stats.totalRevenue || 0) | number }}</h2>
+            </div>
+
+            <!-- Total Bookings -->
+            <div class="metric-card">
+                <div class="metric-header">
+                    <p class="metric-title">Total Bookings</p>
+                    <span class="material-symbols-outlined text-primary bg-primary-light">collections_bookmark</span>
+                </div>
+                <h2 class="metric-value">{{ stats.totalBookings || 0 }}</h2>
+            </div>
+
+            <!-- Total Vehicles -->
+            <div class="metric-card">
+                <div class="metric-header">
+                    <p class="metric-title">Fleet Size</p>
+                    <span class="material-symbols-outlined text-primary bg-primary-light">garage</span>
+                </div>
+                <h2 class="metric-value">{{ stats.totalVehicles || 0 }}</h2>
+            </div>
+        </section>
+
+        <!-- Admin Links -->
+        <section class="admin-links">
+            <h3 class="section-title mb-lg">Quick Actions</h3>
+            <div class="links-grid">
+                <a routerLink="/admin/users" class="action-card">
+                    <div class="action-icon bg-primary-light">
+                        <span class="material-symbols-outlined">manage_accounts</span>
+                    </div>
+                    <div>
+                        <h3 class="action-title">Manage Users</h3>
+                        <p class="action-desc">View, edit roles, or delete users.</p>
+                    </div>
+                </a>
+                <a routerLink="/admin/vehicles" class="action-card">
+                    <div class="action-icon bg-secondary-light">
+                        <span class="material-symbols-outlined">car_repair</span>
+                    </div>
+                    <div>
+                        <h3 class="action-title">Manage Vehicles</h3>
+                        <p class="action-desc">Monitor and remove vehicles from the platform.</p>
+                    </div>
+                </a>
+                <a routerLink="/admin/bookings" class="action-card">
+                    <div class="action-icon bg-tertiary-light">
+                        <span class="material-symbols-outlined">book_online</span>
+                    </div>
+                    <div>
+                        <h3 class="action-title">Manage Bookings</h3>
+                        <p class="action-desc">View all platform booking history.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+</main>

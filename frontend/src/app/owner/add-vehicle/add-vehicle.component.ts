@@ -7,7 +7,7 @@ import { ToastService } from '../../services/toast.service';
 
 @Component({ selector: 'app-add-vehicle', standalone: true, imports: [CommonModule, FormsModule, RouterModule], templateUrl: './add-vehicle.component.html', styleUrl: './add-vehicle.component.css' })
 export class AddVehicleComponent {
-    form = { name: '', brand: '', model: '', year: new Date().getFullYear(), type: 'Car', fuelType: 'Petrol', transmission: 'Automatic', pricePerDay: 0, location: '', seats: 5, description: '' };
+    form = { name: '', brand: '', model: '', year: new Date().getFullYear(), type: 'Car', fuelType: 'Petrol', transmission: 'Automatic', pricePerDay: 0, location: '', seats: 5, description: '', imageUrl: '' };
     selectedFile: File | null = null;
     isSubmitting = false;
     errorMessage = '';

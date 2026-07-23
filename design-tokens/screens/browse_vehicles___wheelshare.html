@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WheelShare Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#07006c",
+                    "on-primary-fixed": "#100069",
+                    "secondary": "#006591",
+                    "secondary-container": "#39b8fd",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#001e2f",
+                    "secondary-fixed": "#c9e6ff",
+                    "tertiary-fixed": "#e1e0ff",
+                    "on-primary-fixed-variant": "#372abf",
+                    "inverse-on-surface": "#eaf1ff",
+                    "primary": "#2a14b4",
+                    "secondary-fixed-dim": "#89ceff",
+                    "on-background": "#0b1c30",
+                    "on-primary-container": "#c1beff",
+                    "surface-bright": "#f8f9ff",
+                    "primary-fixed": "#e3dfff",
+                    "surface": "#f8f9ff",
+                    "surface-container": "#e5eeff",
+                    "outline-variant": "#c7c4d7",
+                    "inverse-surface": "#213145",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "surface-tint": "#5148d7",
+                    "on-secondary": "#ffffff",
+                    "background": "#f8f9ff",
+                    "surface-container-high": "#dce9ff",
+                    "tertiary": "#1f1ab3",
+                    "surface-variant": "#d3e4fe",
+                    "on-tertiary-container": "#bebfff",
+                    "surface-container-low": "#eff4ff",
+                    "surface-dim": "#cbdbf5",
+                    "primary-container": "#4338ca",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#464554",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-surface": "#0b1c30",
+                    "inverse-primary": "#c3c0ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-secondary-container": "#004666",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#3b3bc9",
+                    "on-secondary-fixed-variant": "#004c6e",
+                    "outline": "#777586"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "xxl": "48px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "lg": "24px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-md": [
+                            "Outfit"
+                    ],
+                    "display-lg": [
+                            "Outfit"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Outfit"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "display-lg-mobile": [
+                            "Outfit"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "44px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #c7c4d7;
+            border-radius: 4px;
+        }
+        
+        /* Smooth card hover lift */
+        .vehicle-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .vehicle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 backdrop-blur-xl dark:bg-surface-container/80 fixed top-0 w-full z-50 border-b border-outline-variant/30 dark:border-outline/20 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center h-20 px-md md:px-xl max-w-container-max mx-auto">
+<!-- Brand Logo -->
+<a class="font-headline-md text-headline-md font-bold tracking-tight text-primary dark:text-primary-fixed" href="#">
+                WheelShare
+            </a>
+<!-- Navigation Links (Hidden on Mobile) -->
+<div class="hidden md:flex items-center gap-lg">
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 active:scale-95 duration-200 ease-in-out" href="#">
+                    Marketplace
+                </a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary transition-colors hover:bg-primary/5 dark:hover:bg-primary-fixed/10 rounded-lg transition-all active:scale-95 duration-200 ease-in-out px-sm py-xs" href="#">
+                    Host
+                </a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant/80 hover:text-primary transition-colors hover:bg-primary/5 dark:hover:bg-primary-fixed/10 rounded-lg transition-all active:scale-95 duration-200 ease-in-out px-sm py-xs" href="#">
+                    Reservations
+                </a>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-md">
+<button class="text-primary dark:text-primary-fixed hover:bg-primary/5 dark:hover:bg-primary-fixed/10 rounded-full p-sm transition-all active:scale-95 duration-200 ease-in-out">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-primary dark:text-primary-fixed hover:bg-primary/5 dark:hover:bg-primary-fixed/10 rounded-full p-sm transition-all active:scale-95 duration-200 ease-in-out">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Area with Sidebar layout -->
+<main class="flex-grow pt-20 flex max-w-container-max mx-auto w-full px-margin-mobile md:px-xl gap-xl mb-xxl relative">
+<!-- Sticky Sidebar Filter (Desktop) -->
+<aside class="hidden lg:block w-64 flex-shrink-0 sticky top-[104px] self-start h-[calc(100vh-120px)] sidebar-scroll overflow-y-auto pr-md pb-xl">
+<div class="font-headline-md text-headline-md text-on-background mb-lg pt-md">Filters</div>
+<!-- Price Range -->
+<div class="mb-xl border-b border-outline-variant/50 pb-lg">
+<label class="font-label-md text-label-md text-on-background block mb-md">Price per day</label>
+<div class="flex items-center justify-between mb-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant">$50</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">$300+</span>
+</div>
+<input class="w-full h-2 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" max="300" min="50" type="range" value="150"/>
+</div>
+<!-- Vehicle Type (Chips) -->
+<div class="mb-xl border-b border-outline-variant/50 pb-lg">
+<label class="font-label-md text-label-md text-on-background block mb-md">Vehicle Type</label>
+<div class="flex flex-wrap gap-sm">
+<button class="px-md py-sm rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm transition-colors border border-transparent">All</button>
+<button class="px-md py-sm rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm transition-colors border border-outline-variant/50">SUV</button>
+<button class="px-md py-sm rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm transition-colors border border-outline-variant/50">Sedan</button>
+<button class="px-md py-sm rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm transition-colors border border-outline-variant/50">Luxury</button>
+<button class="px-md py-sm rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm transition-colors border border-outline-variant/50">Electric</button>
+</div>
+</div>
+<!-- Brand -->
+<div class="mb-xl border-b border-outline-variant/50 pb-lg">
+<label class="font-label-md text-label-md text-on-background block mb-md">Brand</label>
+<div class="flex flex-col gap-sm">
+<label class="flex items-center gap-sm cursor-pointer">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tesla</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="rounded border-outline text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">BMW</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="rounded border-outline text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Mercedes</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="rounded border-outline text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Audi</span>
+</label>
+</div>
+</div>
+<!-- Transmission -->
+<div class="mb-xl">
+<label class="font-label-md text-label-md text-on-background block mb-md">Transmission</label>
+<div class="flex flex-col gap-sm">
+<label class="flex items-center gap-sm cursor-pointer">
+<input checked="" class="border-outline text-primary focus:ring-primary h-4 w-4" name="transmission" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Any</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="border-outline text-primary focus:ring-primary h-4 w-4" name="transmission" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Automatic</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="border-outline text-primary focus:ring-primary h-4 w-4" name="transmission" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Manual</span>
+</label>
+</div>
+</div>
+<button class="w-full bg-surface-container-high text-primary font-label-md text-label-md py-md rounded-lg hover:bg-surface-variant transition-colors">Reset Filters</button>
+</aside>
+<!-- Right Content Area -->
+<div class="flex-1 min-w-0 pt-md">
+<!-- Sticky Mobile Search/Filter Bar (Visible < lg) -->
+<div class="lg:hidden sticky top-20 z-40 bg-background/90 backdrop-blur-md pb-md pt-sm -mx-margin-mobile px-margin-mobile mb-md">
+<div class="flex gap-sm">
+<div class="flex-1 bg-surface-container-low rounded-full px-md py-sm flex items-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline mr-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm font-body-sm text-on-background w-full p-0" placeholder="Search location, brand..." type="text"/>
+</div>
+<button class="bg-surface-container-low rounded-full h-10 w-10 flex items-center justify-center border border-outline-variant/30 text-on-background">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+</button>
+</div>
+</div>
+<!-- Results Header -->
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg lg:font-display-lg lg:text-display-lg text-on-background mb-xs">Available Vehicles</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Over 200 cars in San Francisco</p>
+</div>
+<div class="hidden md:flex items-center gap-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sort by:</span>
+<select class="bg-transparent border-none font-label-md text-label-md text-primary cursor-pointer focus:ring-0 pl-0 pr-xl py-0">
+<option>Recommended</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Rating</option>
+</select>
+</div>
+</div>
+<!-- Vehicle Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-xl">
+<!-- Card 1 -->
+<div class="vehicle-card bg-surface-container-lowest rounded-[16px] overflow-hidden flex flex-col cursor-pointer border border-outline-variant/20 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative group">
+<button class="absolute top-sm right-sm z-10 p-sm rounded-full bg-surface-container-lowest/50 backdrop-blur-md hover:bg-surface-container-lowest transition-colors text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+<div class="aspect-[4/3] w-full overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out" data-alt="A pristine white Tesla Model 3 parked on a modern city street bathed in warm sunset light. The urban background is slightly blurred to emphasize the sleek lines of the electric vehicle. High-key lighting highlights the glossy finish, reflecting a premium, modern, and eco-friendly driving aesthetic suitable for a high-end car rental platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZjXKUsHuW_w1gCO4VEbZejKj_dxHKMO30or449fZfzQ5ebLexdI18HIwhfAGda9S8Ibs4A9CoZAG9Idz1J8FD8jud9vJhtaApXmSp1_VpP91Gu0OukjsNtWJSdiMIEJkfR1nJ4H9SzSh2OrYp0A-s0vyDJbU_eAjtXEIYVi-pbDYLqvCfpv5RwDfe-Ao5a8FUIR0Etxfc-Zy23uCUK7WZeTLP6YAMBoE-vr5QBob0j8bGX2X7hqDnaFXdZileD05wluE0sWb4dzQ"/>
+</div>
+<div class="p-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-headline-md text-headline-md text-on-background truncate pr-sm">Tesla Model 3</h3>
+<div class="flex items-center gap-xs flex-shrink-0 bg-surface-container rounded-md px-sm py-[2px]">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="star" data-weight="fill">star</span>
+<span class="font-label-sm text-label-sm text-on-background">4.9</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                                San Francisco, CA
+                            </p>
+</div>
+<div class="flex justify-between items-end mt-sm pt-sm border-t border-outline-variant/30">
+<div class="flex gap-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-sm py-[2px] rounded">Electric</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-sm py-[2px] rounded">5 Seats</span>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md text-primary">$120</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/day</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="vehicle-card bg-surface-container-lowest rounded-[16px] overflow-hidden flex flex-col cursor-pointer border border-outline-variant/20 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative group">
+<button class="absolute top-sm right-sm z-10 p-sm rounded-full bg-surface-container-lowest/50 backdrop-blur-md hover:bg-surface-container-lowest transition-colors text-error">
+<span class="material-symbols-outlined" data-icon="favorite" data-weight="fill">favorite</span>
+</button>
+<div class="aspect-[4/3] w-full overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out" data-alt="A sleek black BMW 4 Series convertible driving along a scenic coastal highway under bright, clear blue skies. The image is crisp and vibrant, showcasing the luxury and freedom of a premium sports car. The lighting is bright and summery, perfect for a high-end travel and lifestyle marketplace presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrqtok51asHoXfSffvtsM0Cu9V2603TxOPnMVKTB8zU-f7UMxd7GAR2riSQhpqkFaPLI-H5VesWd2-X8NMWim1_7daaYw9XYV3kRgxFpBcZAO4vs85u4tlebjD16oDV4_CKrmBs4-wWCpNLAQXJ2udO0VTB60jSiuD4ezE3TlBKJUyWEjjZuRGSOqiwF-3UrmIya_Vrv-JL9sl6zoILqHiI4AXNSIA-T73_gqJjnvOcpruSf_KfrEB4sUGDG406z9yt-vDe97eqbE"/>
+</div>
+<div class="p-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-headline-md text-headline-md text-on-background truncate pr-sm">BMW 4 Series</h3>
+<div class="flex items-center gap-xs flex-shrink-0 bg-surface-container rounded-md px-sm py-[2px]">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="star" data-weight="fill">star</span>
+<span class="font-label-sm text-label-sm text-on-background">4.8</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                                Palo Alto, CA
+                            </p>
+</div>
+<div class="flex justify-between items-end mt-sm pt-sm border-t border-outline-variant/30">
+<div class="flex gap-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-sm py-[2px] rounded">Convertible</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-sm py-[2px] rounded">Auto</span>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md text-primary">$180</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/day</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="vehicle-card bg-surface-container-lowest rounded-[16px] overflow-hidden flex flex-col cursor-pointer border border-outline-variant/20 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative group">
+<button class="absolute top-sm right-sm z-10 p-sm rounded-full bg-surface-container-lowest/50 backdrop-blur-md hover:bg-surface-container-lowest transition-colors text-on-surface-variant hover:text-error">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+<div class="aspect-[4/3] w-full overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out" data-alt="A rugged yet luxurious Range Rover Sport parked in a verdant, mountainous landscape on a misty morning. The mood is adventurous and upscale, with cool tones dominating the scene. The high-resolution photograph highlights the vehicle's robust design against the dramatic natural backdrop, ideal for a premium SUV rental listing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYo5g85UGwMG4gFdsJS26WdiWmQg-IXnb5sPjyZKzgKI5EfQG794DEP6T1D3siKkQJ22DZrqeI-UKQG5Tv5DJXm1b39B1SZfbBdfZjiYNztZjOHJh06GxSUJQ8PIuAaxmRXJ2UJbBA-0jahJeyJHm4HlqJom0xLDOGyv6sPHchlF2MVakoZGPfPaviI-iSQjxivAYofZGLtNM3p-mWqIyPZ-qmgF5V_HebOL-LihTo_oO0Q5p1y0c2LsZG1IgkJ8_tlRI-TKg8i7k"/>
+</div>
+<div class="p-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-xs">
+<h3 class="font-headline-md text-headline-md text-on-background truncate pr-sm">Range Rover Sport</h3>
+<div class="flex items-center gap-xs flex-shrink-0 bg-surface-container rounded-md px-sm py-[2px]">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="star" data-weight="fill">star</span>
+<span class="font-label-sm text-label-sm text-on-background">5.0</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                                Marin County, CA
+                            </p>
+</div>
+<div class="flex justify-between items-end mt-sm pt-sm border-t border-outline-variant/30">
+<div class="flex gap-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-sm py-[2px] rounded">SUV</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-sm py-[2px] rounded">AWD</span>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md text-primary">$250</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/day</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Skeleton Loader Card -->
+<div class="bg-surface-container-lowest rounded-[16px] overflow-hidden flex flex-col border border-outline-variant/20 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] animate-pulse">
+<div class="aspect-[4/3] w-full bg-surface-variant/50"></div>
+<div class="p-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-sm">
+<div class="h-6 bg-surface-variant rounded w-2/3"></div>
+<div class="h-5 bg-surface-variant rounded w-12"></div>
+</div>
+<div class="h-4 bg-surface-variant/50 rounded w-1/2 mb-md"></div>
+</div>
+<div class="flex justify-between items-end mt-sm pt-sm border-t border-outline-variant/30">
+<div class="flex gap-sm">
+<div class="h-5 bg-surface-variant/50 rounded w-16"></div>
+<div class="h-5 bg-surface-variant/50 rounded w-16"></div>
+</div>
+<div class="h-6 bg-surface-variant rounded w-20"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination / Load More -->
+<div class="mt-xl flex justify-center">
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-xl py-md rounded-lg shadow-sm transition-all h-[48px] min-w-[200px]">
+                    Load More Vehicles
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-on-background w-full py-xxl border-t border-outline-variant dark:border-outline/10">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-xl max-w-container-max mx-auto px-margin-mobile md:px-xl">
+<!-- Brand Column -->
+<div class="flex flex-col gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">
+                    WheelShare
+                </span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Premium peer-to-peer car sharing marketplace. Drive the car of your dreams today.
+                </p>
+</div>
+<!-- Links Column 1 -->
+<div class="flex flex-col gap-md">
+<h4 class="font-label-md text-label-md text-on-surface font-semibold">Explore</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer hover:underline transition-all" href="#">Browse Vehicles</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer hover:underline transition-all" href="#">How it Works</a>
+</div>
+<!-- Links Column 2 -->
+<div class="flex flex-col gap-md">
+<h4 class="font-label-md text-label-md text-on-surface font-semibold">Hosting</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer hover:underline transition-all" href="#">List Your Car</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer hover:underline transition-all" href="#">Insurance &amp; Protection</a>
+</div>
+<!-- Links Column 3 -->
+<div class="flex flex-col gap-md">
+<h4 class="font-label-md text-label-md text-on-surface font-semibold">Legal</h4>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer hover:underline transition-all" href="#">Support Center</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer hover:underline transition-all" href="#">Privacy Policy</a>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-xl mt-xl pt-lg border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">© 2024 WheelShare Marketplace. All rights reserved.</span>
+</div>
+</footer>
+</body></html>

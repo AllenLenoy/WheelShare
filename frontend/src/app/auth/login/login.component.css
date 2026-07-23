@@ -1,171 +1,59 @@
-/* ===================================================
-   LOGIN PAGE — WheelShare
-   =================================================== */
-
-
-/* -------- Full Page Wrapper -------- */
-
 .auth-page {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--clr-dark) 0%, #1a2744 50%, var(--clr-primary-dark) 100%);
-    padding: 40px 24px;
+    background: var(--clr-surface-container-low);
+    padding: var(--space-xxl) var(--space-md);
 }
-
-
-/* -------- Card -------- */
 
 .auth-card {
     width: 100%;
-    max-width: 460px;
-    background: var(--clr-white);
-    border-radius: 20px;
-    padding: 48px 40px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-    animation: cardFadeIn 0.5s ease forwards;
+    max-width: 440px;
+    background: var(--clr-surface-container-lowest);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xxl) var(--space-xl);
+    box-shadow: var(--shadow-high);
+    border: 1px solid var(--clr-outline-variant);
 }
-
-@keyframes cardFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* -------- Header -------- */
 
 .auth-header {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: var(--space-xl);
 }
 
 .auth-header h2 {
     font-family: var(--ff-heading);
-    font-size: 1.8rem;
+    font-size: var(--fs-headline-lg);
     font-weight: 700;
-    color: var(--clr-dark);
-    margin-bottom: 8px;
+    color: var(--clr-on-surface);
+    margin-bottom: var(--space-xs);
 }
 
 .auth-header p {
-    font-size: 0.95rem;
-    color: var(--clr-gray-500);
+    font-size: var(--fs-body-md);
+    color: var(--clr-on-surface-variant);
 }
-
-
-/* -------- Form Group -------- */
-
-.form-group {
-    margin-bottom: 22px;
-}
-
-.form-group label {
-    display: block;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--clr-dark-soft);
-    margin-bottom: 8px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px 16px;
-    font-family: var(--ff-body);
-    font-size: 0.95rem;
-    color: var(--clr-dark);
-    background: var(--clr-gray-100);
-    border: 2px solid transparent;
-    border-radius: 12px;
-    outline: none;
-    transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.form-group input::placeholder {
-    color: var(--clr-gray-300);
-}
-
-.form-group input:focus {
-    border-color: var(--clr-primary);
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-    background: var(--clr-white);
-}
-
-
-/* -------- Validation Errors -------- */
-
-.error {
-    display: block;
-    font-size: 0.8rem;
-    color: #ef4444;
-    margin-top: 6px;
-}
-
-
-/* -------- Submit Button -------- */
 
 .btn-submit {
     width: 100%;
-    padding: 14px;
-    font-family: var(--ff-body);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--clr-white);
-    background: var(--clr-primary);
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-    margin-top: 8px;
+    margin-top: var(--space-md);
 }
-
-.btn-submit:hover {
-    background: var(--clr-primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
-}
-
-.btn-submit:active {
-    transform: translateY(0);
-}
-
-
-/* -------- Footer Link -------- */
 
 .auth-footer {
     text-align: center;
-    margin-top: 24px;
-    font-size: 0.9rem;
-    color: var(--clr-gray-500);
+    margin-top: var(--space-xl);
+    font-size: var(--fs-body-sm);
+    color: var(--clr-on-surface-variant);
 }
 
 .auth-footer a {
     color: var(--clr-primary);
     font-weight: 600;
-    transition: color 0.2s ease;
+    transition: var(--transition);
 }
 
 .auth-footer a:hover {
-    color: var(--clr-primary-dark);
-}
-
-
-/* -------- Responsive -------- */
-
-@media (max-width: 480px) {
-
-    .auth-card {
-        padding: 36px 24px;
-    }
-
-    .auth-header h2 {
-        font-size: 1.5rem;
-    }
-
+    color: var(--clr-primary-container);
+    text-decoration: underline;
 }

@@ -8,7 +8,7 @@ const addVehicle = async (req, res) => {
             return res.status(400).json({ message: "Please provide all required fields" });
         }
 
-        let imageUrl = '';
+        let imageUrl = req.body.image || req.body.imageUrl || '';
         if (req.file) {
             imageUrl = req.file.path;
         }
@@ -67,6 +67,9 @@ const updateVehicle = async (req, res) => {
         }
 
         let updateData = { ...req.body };
+        if (req.body.imageUrl || req.body.image) {
+            updateData.image = req.body.imageUrl || req.body.image;
+        }
         if (req.file) {
             updateData.image = req.file.path;
         }

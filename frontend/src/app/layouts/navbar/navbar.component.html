@@ -3,31 +3,33 @@
 
         <!-- Logo -->
         <a routerLink="/" class="nav-logo" (click)="closeMobileMenu()">
-            <span class="logo-icon">🚗</span>
-            <span class="logo-text">Wheel<span class="logo-highlight">Share</span></span>
+            <span class="material-symbols-outlined logo-icon" style="font-variation-settings: 'FILL' 1;">directions_car</span>
+            <span class="logo-text">WheelShare</span>
         </a>
 
         <!-- Nav Links -->
         <ul class="nav-links" [class.active]="isMobileMenuOpen">
 
-            <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="nav-link" (click)="closeMobileMenu()">Home</a></li>
-            <li><a routerLink="/vehicles" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Cars</a></li>
+            <ng-container *ngIf="!user || user.role === 'customer'">
+                <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="nav-link" (click)="closeMobileMenu()">Marketplace</a></li>
+                <li><a routerLink="/vehicles" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Browse</a></li>
+            </ng-container>
 
             <!-- Customer Links -->
             <ng-container *ngIf="user && user.role === 'customer'">
-                <li><a routerLink="/customer/bookings" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">My Bookings</a></li>
+                <li><a routerLink="/customer/bookings" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Reservations</a></li>
             </ng-container>
 
             <!-- Owner Links -->
             <ng-container *ngIf="user && user.role === 'owner'">
-                <li><a routerLink="/owner/dashboard" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Dashboard</a></li>
+                <li><a routerLink="/owner/dashboard" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Host Dashboard</a></li>
                 <li><a routerLink="/owner/vehicles" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">My Vehicles</a></li>
-                <li><a routerLink="/owner/bookings" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Bookings</a></li>
+                <li><a routerLink="/owner/bookings" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Reservations</a></li>
             </ng-container>
 
             <!-- Admin Links -->
             <ng-container *ngIf="user && user.role === 'admin'">
-                <li><a routerLink="/admin/dashboard" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Dashboard</a></li>
+                <li><a routerLink="/admin/dashboard" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Admin Central</a></li>
                 <li><a routerLink="/admin/users" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Users</a></li>
                 <li><a routerLink="/admin/vehicles" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Vehicles</a></li>
                 <li><a routerLink="/admin/bookings" routerLinkActive="active-link" class="nav-link" (click)="closeMobileMenu()">Bookings</a></li>
@@ -35,23 +37,32 @@
 
             <!-- Mobile Auth Buttons -->
             <li class="nav-auth-mobile" *ngIf="!user">
-                <a routerLink="/auth/login" class="btn btn-ghost" (click)="closeMobileMenu()">Log In</a>
-                <a routerLink="/auth/register" class="btn btn-primary-sm" (click)="closeMobileMenu()">Sign Up</a>
+                <a routerLink="/auth/login" class="btn-ghost" (click)="closeMobileMenu()">Log In</a>
+                <a routerLink="/auth/register" class="btn-primary-sm" (click)="closeMobileMenu()">Sign Up</a>
             </li>
 
             <!-- Mobile Profile -->
             <li class="nav-auth-mobile" *ngIf="user">
-                <a routerLink="/customer/profile" class="btn btn-ghost" (click)="closeMobileMenu()">Profile</a>
-                <button class="btn btn-ghost" (click)="logout()">Logout</button>
+                <a routerLink="/customer/profile" class="btn-ghost" (click)="closeMobileMenu()">Profile</a>
+                <button class="btn-ghost logout-item" (click)="logout()">Logout</button>
             </li>
         </ul>
 
         <!-- Desktop Actions -->
         <div class="nav-actions">
+            <!-- Theme Toggle (Animated Sun/Moon) -->
+            <button class="action-btn theme-toggle-btn" (click)="themeService.toggleTheme()" [attr.aria-label]="'Toggle ' + (themeService.isDark ? 'light' : 'dark') + ' mode'">
+                <span class="material-symbols-outlined theme-icon" [class.dark]="themeService.isDark">
+                    {{ themeService.isDark ? 'dark_mode' : 'light_mode' }}
+                </span>
+            </button>
+
+
+
             <!-- Not Logged In -->
             <ng-container *ngIf="!user">
-                <a routerLink="/auth/login" class="btn btn-ghost">Log In</a>
-                <a routerLink="/auth/register" class="btn btn-primary-sm">Sign Up</a>
+                <a routerLink="/auth/login" class="btn-ghost">Log In</a>
+                <a routerLink="/auth/register" class="btn-primary-sm">Sign Up</a>
             </ng-container>
 
             <!-- Logged In -->
@@ -59,7 +70,7 @@
                 <button class="profile-trigger" (click)="toggleProfileDropdown()">
                     <span class="profile-avatar">{{ userInitial }}</span>
                     <span class="profile-name">{{ user.name }}</span>
-                    <span class="dropdown-arrow" [class.open]="isProfileDropdownOpen">▾</span>
+                    <span class="material-symbols-outlined dropdown-arrow" [class.open]="isProfileDropdownOpen">expand_more</span>
                 </button>
 
                 <div class="profile-dropdown" [class.visible]="isProfileDropdownOpen">
@@ -68,12 +79,22 @@
                         <span class="dropdown-role">{{ user.role | titlecase }}</span>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <a routerLink="/customer/profile" class="dropdown-item" (click)="isProfileDropdownOpen = false">👤 Profile</a>
-                    <a *ngIf="user.role === 'customer'" routerLink="/customer/bookings" class="dropdown-item" (click)="isProfileDropdownOpen = false">📋 My Bookings</a>
-                    <a *ngIf="user.role === 'owner'" routerLink="/owner/dashboard" class="dropdown-item" (click)="isProfileDropdownOpen = false">📊 Dashboard</a>
-                    <a *ngIf="user.role === 'admin'" routerLink="/admin/dashboard" class="dropdown-item" (click)="isProfileDropdownOpen = false">📊 Dashboard</a>
+                    <a routerLink="/customer/profile" class="dropdown-item" (click)="isProfileDropdownOpen = false">
+                        <span class="material-symbols-outlined">person</span> Profile
+                    </a>
+                    <a *ngIf="user.role === 'customer'" routerLink="/customer/bookings" class="dropdown-item" (click)="isProfileDropdownOpen = false">
+                        <span class="material-symbols-outlined">receipt_long</span> My Bookings
+                    </a>
+                    <a *ngIf="user.role === 'owner'" routerLink="/owner/dashboard" class="dropdown-item" (click)="isProfileDropdownOpen = false">
+                        <span class="material-symbols-outlined">dashboard</span> Dashboard
+                    </a>
+                    <a *ngIf="user.role === 'admin'" routerLink="/admin/dashboard" class="dropdown-item" (click)="isProfileDropdownOpen = false">
+                        <span class="material-symbols-outlined">dashboard</span> Dashboard
+                    </a>
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item logout-item" (click)="logout()">🚪 Logout</button>
+                    <button class="dropdown-item logout-item" (click)="logout()">
+                        <span class="material-symbols-outlined">logout</span> Logout
+                    </button>
                 </div>
             </div>
         </div>

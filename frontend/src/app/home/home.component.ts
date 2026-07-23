@@ -1,16 +1,21 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('heroVideo') heroVideoRef!: ElementRef<HTMLVideoElement>;
+
+  searchLocation = '';
+  searchDates = '';
+  searchType = '';
 
   isNavScrolled = false;
   isMobileMenuOpen = false;
@@ -85,9 +90,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private observerInstances: IntersectionObserver[] = [];
 
+  constructor(private router: Router) {}
+
   @HostListener('window:scroll')
   onScroll(): void {
     this.isNavScrolled = window.scrollY > 50;
+  }
+
+  onSearch(): void {
+    const queryParams: any = {};
+    if (this.searchLocation) queryParams.location = this.searchLocation;
+    if (this.searchType) queryParams.type = this.searchType;
+    
+    this.router.navigate(['/vehicles'], { queryParams });
   }
 
   ngOnInit(): void {

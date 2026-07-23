@@ -70,21 +70,22 @@ export class RegisterComponent {
 
   }
 
+  isLoading: boolean = false;
+
   register() {
 
     if (this.registerForm.invalid) {
-
       this.registerForm.markAllAsTouched();
       return;
-
     }
 
+    this.isLoading = true;
     const registerData = this.registerForm.value;
 
     this.authService.register(registerData).subscribe({
 
       next: (response) => {
-
+        this.isLoading = false;
         console.log(response);
 
         // Save token
@@ -96,15 +97,12 @@ export class RegisterComponent {
         this.toastService.success(response.message || 'Registration successful!');
 
         this.router.navigate(['/']);
-
       },
 
       error: (error) => {
-
+        this.isLoading = false;
         console.error(error);
-
         this.toastService.error(error.error?.message || 'Registration Failed');
-
       }
 
     });

@@ -1,84 +1,54 @@
 <div class="auth-page">
-
     <div class="auth-card">
-
         <div class="auth-header">
             <h2>Welcome Back</h2>
             <p>Login to your WheelShare account</p>
         </div>
 
         <form [formGroup]="loginForm" (ngSubmit)="login()">
-
-            <!-- Email -->
-
+            
             <div class="form-group">
-
-                <label for="email">Email</label>
-
+                <label for="email" class="form-label">Email</label>
                 <input
                     type="email"
                     id="email"
                     formControlName="email"
+                    class="form-control"
                     placeholder="Enter your email"
                 >
-
-                <small
-                    class="error"
-                    *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')"
-                >
+                <small class="error" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')">
                     Email is required.
                 </small>
-
-                <small
-                    class="error"
-                    *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('email')"
-                >
+                <small class="error" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('email')">
                     Please enter a valid email.
                 </small>
-
             </div>
 
-
-            <!-- Password -->
-
             <div class="form-group">
-
-                <label for="password">Password</label>
-
+                <label for="password" class="form-label">Password</label>
                 <input
                     type="password"
                     id="password"
                     formControlName="password"
+                    class="form-control"
                     placeholder="Enter your password"
                 >
-
-                <small
-                    class="error"
-                    *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')"
-                >
+                <small class="error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')">
                     Password is required.
                 </small>
-
-                <small
-                    class="error"
-                    *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('minlength')"
-                >
+                <small class="error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('minlength')">
                     Password must be at least 6 characters.
                 </small>
-
             </div>
 
-            <button type="submit" class="btn-submit">
-                Login
+            <button type="submit" class="btn-primary btn-submit" [disabled]="loginForm.invalid || isLoading">
+                {{ isLoading ? 'Logging in...' : 'Login' }}
             </button>
-
         </form>
 
         <p class="auth-footer">
             Don't have an account?
             <a routerLink="/auth/register">Sign Up</a>
         </p>
-
     </div>
-
 </div>

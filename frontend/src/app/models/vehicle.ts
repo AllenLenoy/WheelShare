@@ -15,6 +15,7 @@ export interface Vehicle {
     pricePerDay: number;
     location: string;
     image: string;
+    images?: string[];
     seats: number;
     description: string;
     averageRating: number;

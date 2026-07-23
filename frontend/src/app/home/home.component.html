@@ -1,191 +1,64 @@
-
 <!-- ========== HERO SECTION ========== -->
-<section class="hero">
-  <div class="hero-video-wrapper">
-    <video
-      #heroVideo
-      autoplay
-      muted
-      loop
-      playsinline
-      class="hero-video"
-      poster="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80">
-      <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
-    </video>
-    <div class="hero-overlay"></div>
-  </div>
-
-  <div class="hero-content">
-    <p class="hero-tag">Rent · Share · Explore</p>
-    <h1 class="hero-title">Drive Your Dream<br>Car Today</h1>
-    <p class="hero-subtitle">
-      Access hundreds of verified cars from trusted owners — book in minutes, drive in style.
-    </p>
-    <div class="hero-cta">
-      <a routerLink="/vehicles" class="btn btn-primary btn-lg">Browse Cars</a>
-      <a href="#how-it-works" class="btn btn-outline-light btn-lg">How It Works</a>
+<header class="hero">
+    <!-- Hero Background Video -->
+    <div class="hero-bg">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          class="hero-bg-video"
+          poster="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=80">
+          <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+        </video>
+        <!-- Gradient Overlay for legibility -->
+        <div class="hero-overlay"></div>
     </div>
 
-    <div class="hero-stats">
-      <div class="stat">
-        <span class="stat-number">50+</span>
-        <span class="stat-label">Cars Available</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <span class="stat-number">120+</span>
-        <span class="stat-label">Happy Riders</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <span class="stat-number">15+</span>
-        <span class="stat-label">Cities Covered</span>
-      </div>
-    </div>
-  </div>
+    <div class="hero-content">
+        <h1 class="hero-title">
+            Drive the Future of <br class="hide-mobile" style="display:block"> <span class="text-primary">Mobility</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+            Experience the thrill of the open road in the world's most desirable vehicles. Rent directly from trusted local hosts and elevate your journey.
+        </p>
 
-  <div class="hero-scroll-indicator">
-    <span class="scroll-text">Scroll Down</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-
-<!-- ========== FEATURED VEHICLES ========== -->
-<section class="section featured-section">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-badge">Top Picks</span>
-      <h2 class="section-title">Featured Vehicles</h2>
-      <p class="section-subtitle">Handpicked rides that our community loves the most</p>
-    </div>
-
-    <div class="car-grid">
-      <div class="car-card fade-up" *ngFor="let car of featuredCars; let i = index" [style.transition-delay]="(i * 0.12) + 's'">
-        <div class="car-image-wrapper">
-          <img [src]="car.image" [alt]="car.name" loading="lazy">
-          <span class="car-badge">{{ car.type }}</span>
-        </div>
-        <div class="car-details">
-          <div class="car-header">
-            <h3 class="car-name">{{ car.name }}</h3>
-            <div class="car-rating">
-              <span class="star">★</span>
-              <span>{{ car.rating }}</span>
+        <!-- Search Widget (Glassmorphism) -->
+        <div class="search-widget">
+            <!-- Location -->
+            <div class="search-field">
+                <span class="material-symbols-outlined search-icon">location_on</span>
+                <select class="search-input appearance-none" [(ngModel)]="searchLocation">
+                    <option disabled hidden selected value="">City, Airport, or Address</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Kochi">Kochi</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                </select>
             </div>
-          </div>
-          <div class="car-location">
-            <span class="location-pin">📍</span>
-            <span>{{ car.location }}</span>
-          </div>
-          <div class="car-specs">
-            <span class="spec"><span class="spec-icon">⛽</span> {{ car.fuel }}</span>
-            <span class="spec"><span class="spec-icon">⚙️</span> {{ car.transmission }}</span>
-            <span class="spec"><span class="spec-icon">👤</span> {{ car.seats }} seats</span>
-          </div>
-          <div class="car-footer">
-            <div class="car-price">
-              <span class="price-amount">{{ car.price }}</span>
-              <span class="price-period">{{ car.period }}</span>
+            
+            <!-- Dates -->
+            <div class="search-field">
+                <span class="material-symbols-outlined search-icon">calendar_today</span>
+                <input #dateInput class="search-input" [(ngModel)]="searchDates" placeholder="Pick-up & Drop-off" type="text" (focus)="dateInput.type='date'" (blur)="!searchDates ? dateInput.type='text' : null" />
             </div>
-            <a routerLink="/vehicles" class="btn btn-primary btn-sm">Book Now</a>
-          </div>
+            
+            <!-- Vehicle Type -->
+            <div class="search-field hide-mobile">
+                <span class="material-symbols-outlined search-icon">directions_car</span>
+                <select class="search-input appearance-none" [(ngModel)]="searchType">
+                    <option disabled hidden selected value="">Vehicle Type</option>
+                    <option value="Car">Car</option>
+                    <option value="Bike">Bike</option>
+                    <option value="Scooter">Scooter</option>
+                </select>
+            </div>
+            
+            <!-- Search Button -->
+            <button class="btn-primary search-btn" (click)="onSearch()">
+                <span class="material-symbols-outlined">search</span>
+                Find a Car
+            </button>
         </div>
-      </div>
     </div>
-
-    <div class="section-action fade-up">
-      <a routerLink="/vehicles" class="btn btn-outline btn-lg">View All Cars →</a>
-    </div>
-  </div>
-</section>
-
-
-<!-- ========== WHY CHOOSE US ========== -->
-<section class="section why-section" id="about">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-badge">Why Us</span>
-      <h2 class="section-title">Why Choose WheelShare?</h2>
-      <p class="section-subtitle">We make car rental simple, safe, and affordable for everyone</p>
-    </div>
-
-    <div class="features-grid">
-      <div class="feature-card fade-up" style="transition-delay: 0s;">
-        <div class="feature-icon-wrap">
-          <span class="feature-icon">📱</span>
-        </div>
-        <h3 class="feature-title">Easy Booking</h3>
-        <p class="feature-text">Reserve a car in just a few taps. No long forms, no waiting around — instant confirmation.</p>
-      </div>
-
-      <div class="feature-card fade-up" style="transition-delay: 0.1s;">
-        <div class="feature-icon-wrap">
-          <span class="feature-icon">✅</span>
-        </div>
-        <h3 class="feature-title">Verified Owners</h3>
-        <p class="feature-text">Every car and owner goes through a thorough verification process for your safety.</p>
-      </div>
-
-      <div class="feature-card fade-up" style="transition-delay: 0.2s;">
-        <div class="feature-icon-wrap">
-          <span class="feature-icon">💰</span>
-        </div>
-        <h3 class="feature-title">Affordable Pricing</h3>
-        <p class="feature-text">Competitive daily rates with no hidden charges. Pay only for what you need.</p>
-      </div>
-
-      <div class="feature-card fade-up" style="transition-delay: 0.3s;">
-        <div class="feature-icon-wrap">
-          <span class="feature-icon">🛡️</span>
-        </div>
-        <h3 class="feature-title">Fully Insured</h3>
-        <p class="feature-text">Every trip includes insurance coverage so you can drive with complete peace of mind.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ========== HOW IT WORKS ========== -->
-<section class="section steps-section" id="how-it-works">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-badge">Simple Process</span>
-      <h2 class="section-title">How It Works</h2>
-      <p class="section-subtitle">Get on the road in four straightforward steps</p>
-    </div>
-
-    <div class="steps-timeline">
-      <div class="timeline-line"></div>
-      <div class="step-item fade-up" *ngFor="let step of steps; let i = index" [style.transition-delay]="(i * 0.15) + 's'">
-        <div class="step-number-wrap">
-          <span class="step-number">{{ step.number }}</span>
-        </div>
-        <div class="step-content">
-          <h3 class="step-title">{{ step.title }}</h3>
-          <p class="step-desc">{{ step.description }}</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-action fade-up">
-      <a routerLink="/auth/register" class="btn btn-primary btn-lg">Get Started Free</a>
-    </div>
-  </div>
-</section>
-
-
-<!-- ========== CTA BANNER ========== -->
-<section class="cta-banner">
-  <div class="container">
-    <div class="cta-content fade-up">
-      <h2 class="cta-title">Ready to Hit the Road?</h2>
-      <p class="cta-text">Join thousands of happy riders who trust WheelShare for their everyday commute and weekend getaways.</p>
-      <div class="cta-actions">
-        <a routerLink="/auth/register" class="btn btn-white btn-lg">Create Free Account</a>
-        <a routerLink="/vehicles" class="btn btn-outline-white btn-lg">Explore Cars</a>
-      </div>
-    </div>
-  </div>
-</section>
+</header>

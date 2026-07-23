@@ -83,6 +83,41 @@ export class CarDetailsComponent implements OnInit {
         return this.vehicle?.image || 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&h=500&fit=crop&q=80';
     }
 
+    get displayImages(): string[] {
+        if (this.vehicle?.images && this.vehicle.images.length > 0) {
+            return this.vehicle.images;
+        }
+        // Fallback to a single main image if no variants
+        return [this.displayImage];
+    }
+
+    // Gallery Modal State
+    showGallery: boolean = false;
+    currentGalleryIndex: number = 0;
+
+    openGallery(index: number = 0): void {
+        this.currentGalleryIndex = index;
+        this.showGallery = true;
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    closeGallery(): void {
+        this.showGallery = false;
+        document.body.style.overflow = 'auto'; // Restore background scrolling
+    }
+
+    nextImage(event: Event): void {
+        event.stopPropagation();
+        const images = this.displayImages;
+        this.currentGalleryIndex = (this.currentGalleryIndex + 1) % images.length;
+    }
+
+    prevImage(event: Event): void {
+        event.stopPropagation();
+        const images = this.displayImages;
+        this.currentGalleryIndex = (this.currentGalleryIndex - 1 + images.length) % images.length;
+    }
+
     getStars(rating: number): string[] {
         const stars: string[] = [];
         const full = Math.floor(rating);

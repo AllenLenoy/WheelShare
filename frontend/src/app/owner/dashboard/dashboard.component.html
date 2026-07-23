@@ -1,70 +1,119 @@
-<section class="owner-dashboard">
-    <div class="page-container">
-        <h1 class="page-title">Welcome back, {{ userName }} 👋</h1>
-        <p class="page-subtitle">Here's an overview of your vehicle rental business</p>
-
-        <!-- Loading -->
-        <div class="loading-container" *ngIf="isLoading">
-            <div class="spinner"></div>
-            <p>Loading dashboard...</p>
+<main class="page-layout">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div>
+            <h1 class="page-title">Owner Dashboard</h1>
+            <p class="page-subtitle">Welcome back, {{ userName }}. Here's how your fleet is performing.</p>
         </div>
-
-        <div *ngIf="!isLoading">
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-icon">🚗</span>
-                    <div class="stat-info">
-                        <span class="stat-number">{{ totalVehicles }}</span>
-                        <span class="stat-label">My Vehicles</span>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-icon">📋</span>
-                    <div class="stat-info">
-                        <span class="stat-number">{{ activeBookings }}</span>
-                        <span class="stat-label">Active Bookings</span>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-icon">✅</span>
-                    <div class="stat-info">
-                        <span class="stat-number">{{ completedBookings }}</span>
-                        <span class="stat-label">Completed</span>
-                    </div>
-                </div>
-                <div class="stat-card revenue">
-                    <span class="stat-icon">💰</span>
-                    <div class="stat-info">
-                        <span class="stat-number">₹{{ totalRevenue | number }}</span>
-                        <span class="stat-label">Total Revenue</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <a routerLink="/owner/add-vehicle" class="action-btn primary">+ Add New Vehicle</a>
-                <a routerLink="/owner/vehicles" class="action-btn">View My Vehicles</a>
-                <a routerLink="/owner/bookings" class="action-btn">Manage Bookings</a>
-            </div>
-
-            <!-- Pending Bookings -->
-            <div class="section" *ngIf="pendingBookings.length > 0">
-                <div class="section-header">
-                    <h2>Pending Booking Requests</h2>
-                    <a routerLink="/owner/bookings" class="view-all">View All →</a>
-                </div>
-                <div class="pending-list">
-                    <div class="pending-card" *ngFor="let booking of pendingBookings">
-                        <div class="pending-info">
-                            <span class="pending-badge">Pending</span>
-                            <span class="pending-date">{{ booking.createdAt | date:'mediumDate' }}</span>
-                        </div>
-                        <span class="pending-price">₹{{ booking.totalPrice | number }}</span>
-                    </div>
-                </div>
-            </div>
+        <div class="header-actions">
+            <a routerLink="/owner/add-vehicle" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                <span class="material-symbols-outlined">add</span>
+                List Vehicle
+            </a>
         </div>
+    </header>
+
+    <div class="loading-container" *ngIf="isLoading">
+        <div class="spinner"></div>
+        <p>Loading dashboard...</p>
     </div>
-</section>
+
+    <div *ngIf="!isLoading" style="display: flex; flex-direction: column; gap: var(--space-xxl);">
+        <!-- High-Level Metrics -->
+        <section class="metrics-grid">
+            <!-- Revenue -->
+            <div class="metric-card">
+                <div class="metric-header">
+                    <h3 class="metric-title">Total Revenue</h3>
+                    <div class="metric-icon-bg bg-primary-light">
+                        <span class="material-symbols-outlined text-primary">payments</span>
+                    </div>
+                </div>
+                <div class="metric-value">₹{{ totalRevenue | number }}</div>
+                <div class="metric-trend text-secondary-container">
+                    <span class="material-symbols-outlined text-[16px]">trending_up</span>
+                    <span>Overall</span>
+                </div>
+            </div>
+            
+            <!-- My Vehicles -->
+            <div class="metric-card">
+                <div class="metric-header">
+                    <h3 class="metric-title">My Vehicles</h3>
+                    <div class="metric-icon-bg bg-primary-light">
+                        <span class="material-symbols-outlined text-primary">directions_car</span>
+                    </div>
+                </div>
+                <div class="metric-value">{{ totalVehicles }}</div>
+                <div class="metric-trend" style="color: var(--clr-outline);">
+                    <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                    <span>All vehicles live</span>
+                </div>
+            </div>
+
+            <!-- Active Bookings -->
+            <div class="metric-card">
+                <div class="metric-header">
+                    <h3 class="metric-title">Active Bookings</h3>
+                    <div class="metric-icon-bg bg-primary-light">
+                        <span class="material-symbols-outlined text-primary">calendar_month</span>
+                    </div>
+                </div>
+                <div class="metric-value">{{ activeBookings }}</div>
+                <div class="metric-trend" style="color: var(--clr-secondary);">
+                    <span class="material-symbols-outlined text-[16px]">info</span>
+                    <span>{{ completedBookings }} Completed</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions-section">
+            <div class="action-buttons">
+                <a routerLink="/owner/vehicles" class="btn-outline">View My Vehicles</a>
+                <a routerLink="/owner/bookings" class="btn-outline">Manage Bookings</a>
+            </div>
+        </section>
+
+        <!-- Booking Requests -->
+        <section class="booking-requests">
+            <div class="section-header">
+                <h2 class="section-title">Action Required</h2>
+                <a routerLink="/owner/bookings" class="view-all">
+                    View All Requests
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+            </div>
+            
+            <div class="requests-grid">
+                <div class="request-card" *ngFor="let booking of pendingBookings">
+                    <div class="request-header">
+                        <span class="request-badge">New Request</span>
+                        <span class="request-time">{{ booking.createdAt | date:'mediumDate' }}</span>
+                    </div>
+                    <h4 class="request-vehicle">Booking Total: ₹{{ booking.totalPrice | number }}</h4>
+                    <p class="request-dates">
+                        <span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                        {{ booking.startDate | date:'shortDate' }} - {{ booking.endDate | date:'shortDate' }}
+                    </p>
+                    <div class="request-user">
+                        <div class="user-avatar">?</div>
+                        <div>
+                            <p class="user-name">Customer</p>
+                        </div>
+                    </div>
+                    <div class="request-actions">
+                        <button class="btn-decline">Decline</button>
+                        <button class="btn-approve">Approve</button>
+                    </div>
+                </div>
+
+                <div class="empty-requests" *ngIf="pendingBookings.length === 0">
+                    <span class="material-symbols-outlined empty-icon">inbox</span>
+                    <p class="empty-title">All caught up!</p>
+                    <p class="empty-subtitle">You have no pending booking requests right now.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

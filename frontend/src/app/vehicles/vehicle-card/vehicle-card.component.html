@@ -1,49 +1,40 @@
-<div class="vehicle-card">
+<a [routerLink]="['/vehicles', vehicle._id]" class="vehicle-card">
+    <span class="card-badge">{{ vehicle.type }}</span>
+    <span class="card-availability" [class.unavailable]="!vehicle.available">
+        {{ vehicle.available ? 'Available' : 'Booked' }}
+    </span>
+
     <div class="card-image">
         <img [src]="displayImage" [alt]="vehicle.brand + ' ' + vehicle.model" loading="lazy">
-        <span class="card-badge">{{ vehicle.type }}</span>
-        <span class="card-availability" [class.unavailable]="!vehicle.available">
-            {{ vehicle.available ? 'Available' : 'Booked' }}
-        </span>
     </div>
 
     <div class="card-body">
-        <div class="card-header">
-            <h3 class="card-title">{{ vehicle.brand }} {{ vehicle.model }}</h3>
-            <div class="card-rating">
-                <span class="stars">
-                    <span *ngFor="let star of getStars(vehicle.averageRating)" class="star" [class.filled]="star === '★'">{{ star }}</span>
-                </span>
-                <span class="rating-value">{{ vehicle.averageRating | number:'1.1-1' }}</span>
+        <div>
+            <div class="card-header">
+                <h3 class="card-title">{{ vehicle.brand }} {{ vehicle.model }}</h3>
+                <div class="card-rating">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="rating-value">{{ vehicle.averageRating | number:'1.1-1' }}</span>
+                </div>
             </div>
-        </div>
-
-        <div class="card-location">
-            <span class="location-icon">📍</span>
-            <span>{{ vehicle.location }}</span>
-        </div>
-
-        <div class="card-specs">
-            <span class="spec">
-                <span class="spec-icon">⛽</span>
-                {{ vehicle.fuelType }}
-            </span>
-            <span class="spec">
-                <span class="spec-icon">⚙️</span>
-                {{ vehicle.transmission }}
-            </span>
-            <span class="spec">
-                <span class="spec-icon">👤</span>
-                {{ vehicle.seats }} seats
-            </span>
+            
+            <p class="card-location">
+                <span class="material-symbols-outlined">location_on</span>
+                {{ vehicle.location }}
+            </p>
         </div>
 
         <div class="card-footer">
-            <div class="card-price">
+            <div class="card-specs">
+                <span class="spec">{{ vehicle.fuelType }}</span>
+                <span class="spec">{{ vehicle.transmission === 'Automatic' ? 'Auto' : 'Manual' }}</span>
+                <span class="spec">{{ vehicle.seats }} Seats</span>
+            </div>
+            
+            <div class="card-price-container">
                 <span class="price-amount">₹{{ vehicle.pricePerDay | number }}</span>
                 <span class="price-period">/day</span>
             </div>
-            <a [routerLink]="['/vehicles', vehicle._id]" class="btn-view">View Details</a>
         </div>
     </div>
-</div>
+</a>

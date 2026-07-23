@@ -20,7 +20,7 @@ export class EditVehicleComponent implements OnInit {
         this.vehicleId = this.route.snapshot.paramMap.get('id') || '';
         if (this.vehicleId) {
             this.vehicleService.getVehicleById(this.vehicleId).subscribe({
-                next: (v) => { this.form = { name: v.name, brand: v.brand, model: v.model, year: v.year, type: v.type, fuelType: v.fuelType, transmission: v.transmission, pricePerDay: v.pricePerDay, location: v.location, seats: v.seats, description: v.description, available: v.available }; this.isLoading = false; },
+                next: (v) => { this.form = { name: v.name, brand: v.brand, model: v.model, year: v.year, type: v.type, fuelType: v.fuelType, transmission: v.transmission, pricePerDay: v.pricePerDay, location: v.location, seats: v.seats, description: v.description, available: v.available, imageUrl: v.image && v.image.startsWith('http') ? v.image : '' }; this.isLoading = false; },
                 error: () => this.router.navigate(['/owner/vehicles'])
             });
         }

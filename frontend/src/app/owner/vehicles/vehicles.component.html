@@ -11,6 +11,7 @@
             </div>
             <span class="availability-badge" [class.available]="v.available">{{ v.available ? 'Available' : 'Booked' }}</span>
             <div class="table-actions">
+                <a [routerLink]="['/vehicles', v._id]" class="btn-preview">Preview</a>
                 <a [routerLink]="['/owner/edit-vehicle', v._id]" class="btn-edit">Edit</a>
                 <button class="btn-delete" (click)="deleteVehicle(v._id)">Delete</button>
             </div>
