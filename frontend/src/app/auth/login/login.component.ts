@@ -11,92 +11,120 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
 
+// ==========================================
+// COMPONENT DECORATOR
+// ==========================================
+// This tells Angular that this TypeScript class is a Component.
 @Component({
   selector: 'app-login',
-  standalone: true,
+  standalone: true, // It manages its own dependencies without an app.module.ts
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterLink
+    CommonModule,         // Gives us access to standard Angular directives like *ngIf
+    ReactiveFormsModule,  // Required because we are using FormGroup and FormBuilder for our login form
+    RouterLink            // Allows us to use routerLink="..." in the HTML to navigate
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
+  // loginForm will hold the state, values, and validation status of our HTML form
   loginForm: FormGroup;
+  isLoading: boolean = false;
 
+  // ==========================================
+  // CONSTRUCTOR (DEPENDENCY INJECTION)
+  // ==========================================
+  // When Angular creates this component, it looks at the constructor arguments and injects the requested services automatically.
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private toastService: ToastService
+    private fb: FormBuilder,         // Helper to create complex forms easily
+    private authService: AuthService,  // Our custom service to talk to the Node backend
+    private router: Router,          // Angular's routing service to change pages programmatically
+    private toastService: ToastService // Our custom service to show popup notifications
   ) {
 
+    // Initialize the form structure
     this.loginForm = this.fb.group({
-
+      // email is a FormControl. Default value is empty string ''.
       email: [
         '',
         [
-          Validators.required,
-          Validators.email
+          Validators.required, // Must not be empty
+          Validators.email     // Must be a valid email format (e.g. contains @)
         ]
       ],
-
+      // password is a FormControl
       password: [
         '',
         [
           Validators.required,
-          Validators.minLength(6)
+          Validators.minLength(6) // Backend expects at least 6 characters
         ]
       ]
-
     });
 
   }
 
-  isLoading: boolean = false;
-
-  // Getter for email field
+  // ==========================================
+  // GETTERS
+  // ==========================================
+  // These make it easier to access form controls in the HTML file for displaying error messages.
+  // Example in HTML: <div *ngIf="email?.invalid && email?.touched">Invalid email!</div>
   get email() {
     return this.loginForm.get('email');
   }
 
-  // Getter for password field
   get password() {
     return this.loginForm.get('password');
   }
 
+  // ==========================================
+  // LOGIN ACTION
+  // ==========================================
+  // This is triggered by (ngSubmit)="login()" on the <form> tag in the HTML.
   login() {
 
+    // 1. Guard Clause: If the user hasn't filled out the form correctly, stop them here.
     if (this.loginForm.invalid) {
+      // markAllAsTouched() forces all the red error messages in the HTML to show up immediately
       this.loginForm.markAllAsTouched();
       return;
     }
 
     this.isLoading = true;
+    
+    // 2. Extract the email and password from the form
     const loginData = this.loginForm.value;
 
+    // 3. Make the API Call using the AuthService
+    // authService.login() returns an Observable. We MUST call .subscribe() to actually send the HTTP request.
     this.authService.login(loginData).subscribe({
 
+      // 4. NEXT BLOCK (Success)
+      // Runs if the backend responds with a 200/201 status code
       next: (response) => {
         this.isLoading = false;
         console.log(response);
 
-        // Save token
+        // Note: The AuthService actually handles saving to localStorage now via the RxJS 'tap' operator.
+        // These two lines are technically redundant here, but harmless.
         localStorage.setItem('token', response.user.token || '');
-
-        // Save user details
         localStorage.setItem('user', JSON.stringify(response.user));
 
+        // Show a green success popup
         this.toastService.success(response.message || 'Logged in successfully!');
 
+        // Automatically redirect the user to the homepage
         this.router.navigate(['/']);
       },
 
+      // 5. ERROR BLOCK (Failure)
+      // Runs if the backend responds with a 4xx or 5xx status code (e.g. 401 Unauthorized for wrong password)
       error: (error) => {
         this.isLoading = false;
         console.error(error);
+        
+        // Show a red error popup containing the exact error message the backend sent back
         this.toastService.error(error.error?.message || 'Login failed');
       }
 
