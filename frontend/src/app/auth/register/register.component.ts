@@ -86,13 +86,6 @@ export class RegisterComponent {
 
       next: (response) => {
         this.isLoading = false;
-        console.log(response);
-
-        // Save token
-        localStorage.setItem('token', response.user.token || '');
-
-        // Save user details
-        localStorage.setItem('user', JSON.stringify(response.user));
 
         this.toastService.success(response.message || 'Registration successful!');
 

@@ -104,12 +104,6 @@ export class LoginComponent {
       // Runs if the backend responds with a 200/201 status code
       next: (response) => {
         this.isLoading = false;
-        console.log(response);
-
-        // Note: The AuthService actually handles saving to localStorage now via the RxJS 'tap' operator.
-        // These two lines are technically redundant here, but harmless.
-        localStorage.setItem('token', response.user.token || '');
-        localStorage.setItem('user', JSON.stringify(response.user));
 
         // Show a green success popup
         this.toastService.success(response.message || 'Logged in successfully!');

@@ -12,9 +12,6 @@ const helmet = require("helmet");
 // express-rate-limit is used to prevent abuse (like DDoS attacks or brute forcing). It restricts how many times a single IP address can ping our server.
 const rateLimit = require("express-rate-limit"); 
 
-// express-mongo-sanitize removes '$' and '.' characters from incoming data to prevent NoSQL injection attacks (where hackers try to bypass database logic).
-const mongoSanitize = require("express-mongo-sanitize"); 
-
 // dotenv loads the secret variables (like our database password) from the hidden '.env' file into Node's 'process.env' object.
 require("dotenv").config(); 
 
@@ -59,9 +56,6 @@ const globalLimiter = rateLimit({
 app.use(helmet()); // 1st: Secure the HTTP headers immediately.
 app.use(cors());   // 2nd: Allow the Angular frontend to connect.
 app.use(express.json()); // 3rd: Parse incoming JSON data so we can read it in 'req.body'.
-
-// Note: express-mongo-sanitize is currently disabled because the latest version of Express (v5.2) changed how 'req.query' works, causing a crash. In a real production app, we would patch this.
-// app.use(mongoSanitize()); 
 
 app.use(globalLimiter); // 4th: Apply the rate limit to all routes to protect the server from spam.
 
