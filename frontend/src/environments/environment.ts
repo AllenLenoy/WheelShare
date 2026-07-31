@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-backend-app.onrender.com/api' // REPLACE THIS with your actual Render URL
+  apiUrl: 'YOUR_RAILWAY_URL_HERE/api' // REPLACE THIS AFTER DEPLOYING BACKEND TO RAILWAY
 };
