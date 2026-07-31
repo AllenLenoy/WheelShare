@@ -30,8 +30,8 @@ const register = async (req, res) => {
         // 1. Destructure the data sent from the frontend HTML form
         const { name, email, password, role } = req.body;
 
-        // 2. Check if a user with this email already exists in MongoDB
-        const existingUser = await User.findOne({ email });
+        // 2. Check if a user with this email already exists in MongoDB (case-insensitive)
+        const existingUser = await User.findOne({ email: { $regex: new RegExp("^" + email + "$", "i") } });
 
         if (existingUser) {
             // 400 Bad Request: Stop execution and tell frontend the email is taken
@@ -80,8 +80,8 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // 1. Find the user by their email address
-        const user = await User.findOne({ email });
+        // 1. Find the user by their email address (case-insensitive)
+        const user = await User.findOne({ email: { $regex: new RegExp("^" + email + "$", "i") } });
 
         // 2. Verify the user exists AND that the passwords match.
         // bcrypt.compare() checks the plain-text input against the hashed password stored in MongoDB.
@@ -202,8 +202,8 @@ const googleAuth = async (req, res) => {
         const payload = ticket.getPayload();
         const { email, name, sub: googleId } = payload;
 
-        // Check if user exists
-        let user = await User.findOne({ email });
+        // Check if user exists (case-insensitive)
+        let user = await User.findOne({ email: { $regex: new RegExp("^" + email + "$", "i") } });
 
         if (user) {
             // Update googleId if not present
@@ -243,7 +243,7 @@ const googleAuth = async (req, res) => {
 // ==========================================
 const forgotPassword = async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email });
+        const user = await User.findOne({ email: { $regex: new RegExp("^" + req.body.email + "$", "i") } });
 
         if (!user) {
             return res.status(404).json({ message: "There is no user with that email." });
