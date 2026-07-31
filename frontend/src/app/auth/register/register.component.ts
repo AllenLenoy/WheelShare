@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -10,6 +10,7 @@ import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
+import { SocialAuthService, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-register',
@@ -17,12 +18,13 @@ import { ToastService } from '../../services/toast.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    GoogleSigninButtonModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
 
@@ -30,7 +32,8 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private socialAuthService: SocialAuthService
   ) {
 
     this.registerForm = this.fb.group({
@@ -71,6 +74,26 @@ export class RegisterComponent {
   }
 
   isLoading: boolean = false;
+
+  ngOnInit() {
+    this.socialAuthService.authState.subscribe((user) => {
+      if (user && user.idToken) {
+        this.isLoading = true;
+        this.authService.googleLogin(user.idToken).subscribe({
+          next: (response) => {
+            this.isLoading = false;
+            this.toastService.success(response.message || 'Logged in successfully!');
+            this.router.navigate(['/']);
+          },
+          error: (error) => {
+            this.isLoading = false;
+            console.error(error);
+            this.toastService.error(error.error?.message || 'Google Login failed');
+          }
+        });
+      }
+    });
+  }
 
   register() {
 

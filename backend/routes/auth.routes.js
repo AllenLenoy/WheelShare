@@ -35,6 +35,14 @@ const authLimiter = rateLimit({
 router.post("/register", authLimiter, register);
 router.post("/login", authLimiter, login);
 
+// Google Auth Route
+const { googleAuth, forgotPassword, resetPassword } = require("../controllers/auth.controller");
+router.post("/google", googleAuth);
+
+// Password Reset Routes
+router.post("/forgotpassword", forgotPassword);
+router.put("/resetpassword/:resettoken", resetPassword);
+
 // PROTECTED ROUTES: You must be logged in to access these.
 // We apply the 'protect' middleware. If the user doesn't have a valid JWT token, 'protect' will block the request and send a 401 error.
 // If they DO have a valid token, 'protect' will let the request pass through to the controller (e.g. getProfile).

@@ -20,8 +20,16 @@ const userSchema = new mongoose.Schema(
 
         password: {
             type: String,
-            required: true  // Note: This password will be hashed by bcrypt before it is saved here
+            required: false  // Optional because Google users won't have a password initially
         },
+
+        googleId: {
+            type: String,
+            required: false // Only present for users who sign up with Google
+        },
+
+        resetPasswordToken: String,
+        resetPasswordExpire: Date,
 
         role: {
             type: String,

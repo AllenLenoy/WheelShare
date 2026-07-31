@@ -8,6 +8,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { CarListComponent } from './vehicles/car-list/car-list.component';
 import { CarDetailsComponent } from './vehicles/car-details/car-details.component';
 import { BookCarComponent } from './booking/book-car/book-car.component';
@@ -32,6 +34,8 @@ export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'auth/login', component: LoginComponent },
     { path: 'auth/register', component: RegisterComponent },
+    { path: 'auth/forgot-password', component: ForgotPasswordComponent },
+    { path: 'auth/reset-password/:token', component: ResetPasswordComponent },
     { path: 'vehicles', component: CarListComponent },
     
     // Parameterized Route: The ':id' is dynamic. If the URL is /vehicles/123, the component can read '123' using ActivatedRoute.

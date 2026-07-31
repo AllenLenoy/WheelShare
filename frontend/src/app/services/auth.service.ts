@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User, AuthResponse } from '../models/user';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 // @Injectable({ providedIn: 'root' }) makes this service a "Singleton".
 // This means Angular creates exactly ONE instance of AuthService for the entire application,
@@ -12,7 +14,7 @@ import { User, AuthResponse } from '../models/user';
 })
 export class AuthService {
 
-    private apiUrl = 'http://localhost:5000/api/auth';
+    private apiUrl = environment.apiUrl + '/auth';
     
     // ==========================================
     // BEHAVIORSUBJECT (STATE MANAGEMENT)
@@ -27,7 +29,10 @@ export class AuthService {
     user$ = this.userSubject.asObservable();
 
     // Dependency Injection: Angular automatically provides the HttpClient so we can make API requests.
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private socialAuthService: SocialAuthService
+    ) { }
 
     // ==========================================
     // LOGIN METHOD
@@ -47,13 +52,43 @@ export class AuthService {
         );
     }
 
-    // ==========================================
-    // REGISTER METHOD
-    // ==========================================
     register(data: { name: string; email: string; password: string; role: string }): Observable<AuthResponse> {
         return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data).pipe(
             tap(response => {
                 // Similar to login, we automatically log the user in after they successfully register.
+                localStorage.setItem('token', response.user.token!);
+                localStorage.setItem('user', JSON.stringify(response.user));
+                this.userSubject.next(response.user);
+            })
+        );
+    }
+
+    // ==========================================
+    // GOOGLE LOGIN METHOD
+    // ==========================================
+    googleLogin(idToken: string): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(`${this.apiUrl}/google`, { idToken }).pipe(
+            tap(response => {
+                localStorage.setItem('token', response.user.token!);
+                localStorage.setItem('user', JSON.stringify(response.user));
+                this.userSubject.next(response.user);
+            })
+        );
+    }
+
+    // ==========================================
+    // FORGOT PASSWORD
+    // ==========================================
+    forgotPassword(email: string): Observable<any> {
+        return this.http.post(`${this.apiUrl}/forgotpassword`, { email });
+    }
+
+    // ==========================================
+    // RESET PASSWORD
+    // ==========================================
+    resetPassword(token: string, password: string): Observable<AuthResponse> {
+        return this.http.put<AuthResponse>(`${this.apiUrl}/resetpassword/${token}`, { password }).pipe(
+            tap(response => {
                 localStorage.setItem('token', response.user.token!);
                 localStorage.setItem('user', JSON.stringify(response.user));
                 this.userSubject.next(response.user);
@@ -92,6 +127,15 @@ export class AuthService {
         
         // Push 'null' to the BehaviorSubject. The Navbar will see this and change the "Profile" button back to "Login".
         this.userSubject.next(null);
+        
+        // Sign out from Google so the user isn't auto-logged-in next time they click the Google button
+        try {
+            this.socialAuthService.signOut().catch(() => {
+                // Ignore error if user wasn't logged in with Google
+            });
+        } catch (e) {
+            // Catch synchronous errors just in case
+        }
     }
 
     // ==========================================

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -10,6 +10,7 @@ import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
+import { SocialAuthService, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
 // ==========================================
 // COMPONENT DECORATOR
@@ -21,12 +22,13 @@ import { ToastService } from '../../services/toast.service';
   imports: [
     CommonModule,         // Gives us access to standard Angular directives like *ngIf
     ReactiveFormsModule,  // Required because we are using FormGroup and FormBuilder for our login form
-    RouterLink            // Allows us to use routerLink="..." in the HTML to navigate
+    RouterLink,           // Allows us to use routerLink="..." in the HTML to navigate
+    GoogleSigninButtonModule // Provides the Google Sign-in button component
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   // loginForm will hold the state, values, and validation status of our HTML form
   loginForm: FormGroup;
@@ -40,7 +42,8 @@ export class LoginComponent {
     private fb: FormBuilder,         // Helper to create complex forms easily
     private authService: AuthService,  // Our custom service to talk to the Node backend
     private router: Router,          // Angular's routing service to change pages programmatically
-    private toastService: ToastService // Our custom service to show popup notifications
+    private toastService: ToastService, // Our custom service to show popup notifications
+    private socialAuthService: SocialAuthService // Google auth service
   ) {
 
     // Initialize the form structure
@@ -63,6 +66,26 @@ export class LoginComponent {
       ]
     });
 
+  }
+
+  ngOnInit() {
+    this.socialAuthService.authState.subscribe((user) => {
+      if (user && user.idToken) {
+        this.isLoading = true;
+        this.authService.googleLogin(user.idToken).subscribe({
+          next: (response) => {
+            this.isLoading = false;
+            this.toastService.success(response.message || 'Logged in successfully!');
+            this.router.navigate(['/']);
+          },
+          error: (error) => {
+            this.isLoading = false;
+            console.error(error);
+            this.toastService.error(error.error?.message || 'Google Login failed');
+          }
+        });
+      }
+    });
   }
 
   // ==========================================

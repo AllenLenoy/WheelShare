@@ -5,6 +5,14 @@
             <p>Join WheelShare and start your journey</p>
         </div>
 
+        <div class="google-auth-container" style="display: flex; justify-content: center; margin-bottom: 20px;">
+            <asl-google-signin-button type="standard" size="large" [width]="250"></asl-google-signin-button>
+        </div>
+
+        <div class="divider" style="text-align: center; margin-bottom: 20px; color: #777;">
+            <span>or sign up with email</span>
+        </div>
+
         <form [formGroup]="registerForm" (ngSubmit)="register()">
             
             <div class="form-group">
