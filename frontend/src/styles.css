@@ -20,6 +20,7 @@
   --clr-primary-container: #4338ca;
   --clr-on-primary: #ffffff;
   --clr-primary-alpha: rgba(42, 20, 180, 0.1);
+  --clr-logo-text: var(--clr-primary);
   
   --clr-secondary: #006591;
   --clr-secondary-container: #39b8fd;
@@ -92,6 +93,7 @@ body.dark-theme {
   --clr-primary-container: #4338ca;
   --clr-on-primary: #ffffff;
   --clr-primary-alpha: rgba(142, 132, 240, 0.15);
+  --clr-logo-text: #ffffff;
   
   --clr-secondary: #39b8fd;
   --clr-secondary-container: #006591;
