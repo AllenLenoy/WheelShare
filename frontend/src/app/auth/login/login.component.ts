@@ -76,7 +76,15 @@ export class LoginComponent implements OnInit {
           next: (response) => {
             this.isLoading = false;
             this.toastService.success(response.message || 'Logged in successfully!');
-            this.router.navigate(['/']);
+            
+            const role = response.user?.role;
+            if (role === 'admin') {
+              this.router.navigate(['/admin/dashboard']);
+            } else if (role === 'owner') {
+              this.router.navigate(['/owner/dashboard']);
+            } else {
+              this.router.navigate(['/customer/dashboard']);
+            }
           },
           error: (error) => {
             this.isLoading = false;
@@ -131,8 +139,14 @@ export class LoginComponent implements OnInit {
         // Show a green success popup
         this.toastService.success(response.message || 'Logged in successfully!');
 
-        // Automatically redirect the user to the homepage
-        this.router.navigate(['/']);
+        const role = response.user?.role;
+        if (role === 'admin') {
+          this.router.navigate(['/admin/dashboard']);
+        } else if (role === 'owner') {
+          this.router.navigate(['/owner/dashboard']);
+        } else {
+          this.router.navigate(['/customer/dashboard']);
+        }
       },
 
       // 5. ERROR BLOCK (Failure)

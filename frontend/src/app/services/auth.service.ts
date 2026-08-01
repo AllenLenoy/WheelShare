@@ -66,8 +66,8 @@ export class AuthService {
     // ==========================================
     // GOOGLE LOGIN METHOD
     // ==========================================
-    googleLogin(idToken: string): Observable<AuthResponse> {
-        return this.http.post<AuthResponse>(`${this.apiUrl}/google`, { idToken }).pipe(
+    googleLogin(idToken: string, role?: string): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(`${this.apiUrl}/google`, { idToken, role }).pipe(
             tap(response => {
                 localStorage.setItem('token', response.user.token!);
                 localStorage.setItem('user', JSON.stringify(response.user));
