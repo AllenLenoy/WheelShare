@@ -79,19 +79,11 @@ export class RegisterComponent implements OnInit {
     this.socialAuthService.authState.subscribe((user) => {
       if (user && user.idToken) {
         this.isLoading = true;
-        const selectedRole = this.registerForm?.get('role')?.value || 'customer';
-        this.authService.googleLogin(user.idToken, selectedRole).subscribe({
+        this.authService.googleLogin(user.idToken).subscribe({
           next: (response) => {
             this.isLoading = false;
             this.toastService.success(response.message || 'Logged in successfully!');
-            const role = response.user?.role;
-            if (role === 'admin') {
-              this.router.navigate(['/admin/dashboard']);
-            } else if (role === 'owner') {
-              this.router.navigate(['/owner/dashboard']);
-            } else {
-              this.router.navigate(['/customer/dashboard']);
-            }
+            this.router.navigate(['/']);
           },
           error: (error) => {
             this.isLoading = false;
@@ -120,14 +112,7 @@ export class RegisterComponent implements OnInit {
 
         this.toastService.success(response.message || 'Registration successful!');
 
-        const role = response.user?.role;
-        if (role === 'admin') {
-          this.router.navigate(['/admin/dashboard']);
-        } else if (role === 'owner') {
-          this.router.navigate(['/owner/dashboard']);
-        } else {
-          this.router.navigate(['/customer/dashboard']);
-        }
+        this.router.navigate(['/']);
       },
 
       error: (error) => {

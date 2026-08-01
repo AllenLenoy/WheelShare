@@ -191,7 +191,7 @@ const changePassword = async (req, res) => {
 // ==========================================
 const googleAuth = async (req, res) => {
     try {
-        const { idToken, role } = req.body;
+        const { idToken } = req.body;
 
         // Verify the token with Google
         const ticket = await client.verifyIdToken({
@@ -217,7 +217,7 @@ const googleAuth = async (req, res) => {
                 name,
                 email,
                 googleId,
-                role: role || "customer"
+                role: "customer"
             });
         }
 
